@@ -1,0 +1,39 @@
+.client-card {
+  background-color: #fff;
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    p {
+      margin-top: .25rem;
+    }
+  }
+
+  .avatar {
+    height: 4rem;
+    width: 4rem;
+    border-radius: 100%;
+    background-color: #C4C4C4;
+  }
+}
+
+.buttons {
+  display: flex;
+  border-top: 1px solid #dedede;
+  .button {
+    font: inherit;
+    padding: .75rem;
+    font-weight: 600;
+    text-align: left;
+    width: 100%;
+    border: none;
+    background-color: #fff;
+  }
+  .separator {
+    width: 1px;
+    min-height: 100%;
+    background-color: #C4C4C4;
+  }
+}
