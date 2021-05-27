@@ -1,0 +1,22 @@
+.clients {
+  padding: 1rem;
+  h1 {
+    margin-top: 0;
+  }
+  &--grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+
+
+  .clients {
+    padding: 1.75rem;
+    &--grid {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+  }
+}
