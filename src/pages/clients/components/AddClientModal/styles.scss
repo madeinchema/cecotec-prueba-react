@@ -47,26 +47,5 @@
       }
     }
   }
-
-  &--content form {
-    font-weight: 600;
-
-    label {
-      display: flex;
-      flex-direction: column;
-      font-size: .875rem;
-    }
-    input {
-      margin-top: .25rem;
-      font: inherit;
-      height: 2.25rem;
-      font-size: 1rem;
-      padding-left: .5rem;
-      padding-right: .5rem;
-      border: 1px solid #e0e0e0;
-      margin-bottom: 1rem;
-
-    }
-  }
 }
 
