@@ -1,0 +1,50 @@
+@import '../../utils/variables';
+
+.login {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+
+  &--container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.125rem;
+    margin-top: 3rem;
+    margin: 3rem auto auto;
+    max-width: 24rem;
+    background-color: $white;
+    width: 100%;
+
+
+  }
+  &--logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    img {
+      max-width: 12.5rem;
+      margin: 1rem 2rem 1.5rem;
+    }
+  }
+  &--button {
+    width: 100%;
+  }
+  form {
+    width: 100%;
+  }
+  &--alternative-action {
+    font-weight: 500;
+    cursor: pointer;
+    font-size: .875rem;
+    color: $primary-700;
+    &:hover {
+      color: $primary-500;
+    }
+    &:active, &:focus {
+      color: $primary-600;
+    }
+  }
+}
