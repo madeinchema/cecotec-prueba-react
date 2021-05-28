@@ -31,27 +31,29 @@ const Clients = (): JSX.Element => {
 
   return (
     <div className="clients">
-      <div className="clients--header">
-        <h1>Clientes</h1>
-        <Button variant="primary" onClick={handleAddClient}>
-          Añadir cliente
-        </Button>
+      <div className="clients--container">
+        <div className="clients--header">
+          <h1>Clientes</h1>
+          <Button variant="primary" onClick={handleAddClient}>
+            Añadir cliente
+          </Button>
+        </div>
+        <div className="clients--grid">
+          {clientsList.map((client: Client) => (
+            <ClientCard
+              key={`${client.id}-card`}
+              id={client.id}
+              name={client.name}
+              email={client.email}
+            />
+          ))}
+        </div>
+        {showAddClientModal && (
+          <Portal id="add-client-modal">
+            <AddClientModal onClose={toggleAddClientModal} />
+          </Portal>
+        )}
       </div>
-      <div className="clients--grid">
-        {clientsList.map((client: Client) => (
-          <ClientCard
-            key={`${client.id}-card`}
-            id={client.id}
-            name={client.name}
-            email={client.email}
-          />
-        ))}
-      </div>
-      {showAddClientModal && (
-        <Portal id="add-client-modal">
-          <AddClientModal onClose={toggleAddClientModal} />
-        </Portal>
-      )}
     </div>
   )
 }

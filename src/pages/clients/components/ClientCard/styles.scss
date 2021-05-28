@@ -6,30 +6,28 @@
     justify-content: center;
     align-items: center;
     padding: 1rem;
-    p {
-      margin-top: .25rem;
-    }
   }
 
   .details {
-    font-size: .75rem;
+    font-size: 0.75rem;
     text-align: center;
     font-weight: 500;
 
-    p {margin-bottom: .5rem;}
+    p {
+      margin-top: 0.25rem;
+      margin-bottom: 0.5rem;
+    }
 
     &--name {
       font-size: 1rem;
-
+      span {
+        color: #888;
+      }
     }
     &--email {
       white-space: nowrap;
-  overflow: hidden;
+      overflow: hidden;
       text-overflow: ellipsis;
-
-    }
-    span {
-      color: #888;
     }
   }
 
@@ -37,8 +35,8 @@
     height: 4rem;
     width: 4rem;
     border-radius: 100%;
-    background-color: #C4C4C4;
-    margin: .5rem;
+    background-color: #c4c4c4;
+    margin: 0.5rem;
   }
 }
 
@@ -49,11 +47,12 @@
       text-align: center;
       font-weight: 500;
 
-      p {margin: .5rem;}
+      p {
+        margin: 0.5rem;
+      }
 
       &--name {
         font-size: 1.25rem;
-
       }
     }
   }

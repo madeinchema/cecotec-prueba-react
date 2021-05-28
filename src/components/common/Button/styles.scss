@@ -3,8 +3,8 @@
 .button {
   font: inherit;
   border: none;
-  padding: .75rem 1.5rem;
-  font-size: 1rem;
+  padding: .625rem 1.25rem;
+  font-size: .875rem;
   font-weight: 600;
   cursor: pointer;
   box-sizing: border-box;
@@ -29,3 +29,10 @@
   }
 }
 
+
+@media (min-width: 768px) {
+  .button {
+    padding: .75rem 1.5rem;
+    font-size: 1rem;
+  }
+}
