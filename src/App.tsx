@@ -1,13 +1,14 @@
 import React from 'react'
 import './App.scss'
-import Header from './components/layout/Header'
+import Layout from './components/layout/Layout'
 import Clients from './pages/clients/Clients'
 
 function App(): JSX.Element {
   return (
     <div className="App">
-      <Header />
-      <Clients />
+      <Layout>
+        <Clients />
+      </Layout>
     </div>
   )
 }
