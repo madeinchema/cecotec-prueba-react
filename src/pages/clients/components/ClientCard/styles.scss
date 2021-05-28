@@ -11,29 +11,27 @@
     }
   }
 
+  .details {
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 500;
+
+    p {margin: .5rem;}
+
+    &--name {
+      font-size: 1.25rem;
+
+    }
+    span {
+      color: #888;
+    }
+  }
+
   .avatar {
     height: 4rem;
     width: 4rem;
     border-radius: 100%;
     background-color: #C4C4C4;
-  }
-}
-
-.buttons {
-  display: flex;
-  border-top: 1px solid #dedede;
-  .button {
-    font: inherit;
-    padding: .75rem;
-    font-weight: 600;
-    text-align: left;
-    width: 100%;
-    border: none;
-    background-color: #fff;
-  }
-  .separator {
-    width: 1px;
-    min-height: 100%;
-    background-color: #C4C4C4;
+    margin: .5rem;
   }
 }
