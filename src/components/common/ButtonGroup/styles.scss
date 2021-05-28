@@ -1,0 +1,18 @@
+.button-group {
+  display: flex;
+  flex-direction: row;
+  border-top: 1px solid #dedede;
+  .button {
+    font-size: 1rem;
+    padding: .75rem;
+    font-weight: 600;
+    text-align: left;
+    width: 100%;
+  }
+  .separator {
+    z-index: 1;
+    width: 1px;
+    min-height: 100%;
+    background-color: #dedede;
+  }
+}
