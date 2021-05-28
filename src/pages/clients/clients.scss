@@ -1,7 +1,14 @@
 .clients {
   padding: 1rem;
-  h1 {
-    margin-top: 0;
+  &--header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    h1 {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
   }
   &--grid {
     display: grid;
