@@ -17,9 +17,15 @@
   }
 }
 
+@media (max-width: 360px) {
+  .clients {
+    &--grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
 @media (min-width: 768px) {
-
-
   .clients {
     padding: 1.75rem;
     &--grid {

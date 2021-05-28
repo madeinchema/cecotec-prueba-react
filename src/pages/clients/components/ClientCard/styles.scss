@@ -12,14 +12,20 @@
   }
 
   .details {
-    font-size: 1rem;
+    font-size: .75rem;
     text-align: center;
     font-weight: 500;
 
-    p {margin: .5rem;}
+    p {margin-bottom: .5rem;}
 
     &--name {
-      font-size: 1.25rem;
+      font-size: 1rem;
+
+    }
+    &--email {
+      white-space: nowrap;
+  overflow: hidden;
+      text-overflow: ellipsis;
 
     }
     span {
@@ -33,5 +39,22 @@
     border-radius: 100%;
     background-color: #C4C4C4;
     margin: .5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .client-card {
+    .details {
+      font-size: 1rem;
+      text-align: center;
+      font-weight: 500;
+
+      p {margin: .5rem;}
+
+      &--name {
+        font-size: 1.25rem;
+
+      }
+    }
   }
 }

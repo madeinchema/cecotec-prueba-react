@@ -32,7 +32,7 @@ const Clients = (): JSX.Element => {
   return (
     <div className="clients">
       <div className="clients--header">
-        <h1>Clients</h1>
+        <h1>Clientes</h1>
         <Button variant="primary" onClick={handleAddClient}>
           Añadir cliente
         </Button>
