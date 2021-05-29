@@ -3,9 +3,12 @@ import { useDispatch } from 'react-redux'
 import ButtonGroup from '../../../../components/common/ButtonGroup'
 import { ClientPublicData } from '../../../../types'
 import { removeClient } from '../../../../state/slices/clientsSlice'
+
+import { Portal, ModalConfirm } from '../../../../components'
+import EditClientModal from './components/EditClientModal'
 import './styles.scss'
-import Portal from '../../../../components/layout/Portal'
-import ModalConfirm from '../../../../components/common/ModalConfirm'
+
+type ModalType = 'REMOVE_CLIENT' | 'EDIT_CLIENT'
 
 const ClientCard = ({
   id,
@@ -13,28 +16,34 @@ const ClientCard = ({
   email,
   avatar,
 }: ClientPublicData): JSX.Element => {
-  const [showAddClientModal, setShowAddClientModal] = useState(false)
+  const [handleShowClientModals, setHandleShowClientModals] = useState({
+    REMOVE_CLIENT: false,
+    EDIT_CLIENT: false,
+  })
   const dispatch = useDispatch()
 
-  function toggleModal(): void {
-    setShowAddClientModal(prevState => !prevState)
+  const toggleClientModal = (modalType: ModalType): void => {
+    setHandleShowClientModals(prevState => ({
+      ...prevState,
+      [modalType]: !prevState[modalType],
+    }))
   }
 
-  function handleRemoveClient(): void {
+  const handleRemoveClient = (): void => {
     dispatch(removeClient(id))
-    toggleModal()
+    toggleClientModal('REMOVE_CLIENT')
   }
 
   const buttonGroupDataSource = [
     {
       id: `${id}-edit`,
       children: 'Editar',
-      onClick: () => console.log('editar cliente'),
+      onClick: () => toggleClientModal('EDIT_CLIENT'),
     },
     {
       id: `${id}-remove`,
       children: 'Eliminar',
-      onClick: () => toggleModal(),
+      onClick: () => toggleClientModal('REMOVE_CLIENT'),
     },
   ]
 
@@ -42,7 +51,7 @@ const ClientCard = ({
     confirmBtnConfig: {
       id: `modal-cancel-remove-client-${id}`,
       content: 'Cancelar',
-      onClick: () => toggleModal(),
+      onClick: () => toggleClientModal('REMOVE_CLIENT'),
     },
     cancelBtnConfig: {
       id: `modal-confirm-remove-client-${id}`,
@@ -62,12 +71,23 @@ const ClientCard = ({
           <p className="details--email">{email}</p>
         </div>
       </div>
+
       <ButtonGroup dataSource={buttonGroupDataSource} />
-      {showAddClientModal && (
-        <Portal id="add-client-modal">
+
+      {handleShowClientModals.EDIT_CLIENT && (
+        <Portal id="edit-client-modal">
+          <EditClientModal
+            clientId={id}
+            onClose={() => toggleClientModal('EDIT_CLIENT')}
+          />
+        </Portal>
+      )}
+
+      {handleShowClientModals.REMOVE_CLIENT && (
+        <Portal id="remove-client-modal">
           <ModalConfirm
             title="¿Eliminar cliente?"
-            onClose={toggleModal}
+            onClose={() => toggleClientModal('REMOVE_CLIENT')}
             confirmBtnConfig={modalConfirmButtonGroupConfig.confirmBtnConfig}
             cancelBtnConfig={modalConfirmButtonGroupConfig.cancelBtnConfig}
           >
