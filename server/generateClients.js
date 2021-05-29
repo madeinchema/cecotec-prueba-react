@@ -8,7 +8,8 @@ const database = { clients: [] }
 for (let i = 1; i <= 20; i++) {
   const newUser = {
     id: i,
-    name: name.firstName(),
+    firstName: name.firstName(),
+    lastName: name.lastName(),
     email: internet.email(),
     password: internet.password(),
     avatar: image.avatar(),
