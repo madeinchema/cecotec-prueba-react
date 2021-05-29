@@ -11,3 +11,10 @@ export interface ClientSecureData {
 }
 
 export type ClientData = ClientPublicData & ClientSecureData
+
+export interface EditableClientData {
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+}

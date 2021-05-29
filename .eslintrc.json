@@ -20,8 +20,7 @@
   },
   "plugins": ["react", "@typescript-eslint", "react-hooks"],
   "rules": {
-    "no-use-before-define": "off",
-    "@typescript-eslint/no-use-before-define": ["error"],
+    "no-use-before-define": ["error", { "functions": false }],
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
     "import/extensions": [
       "error",

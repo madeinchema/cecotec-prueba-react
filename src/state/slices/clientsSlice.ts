@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { internet, image } from 'faker'
-import { ClientData, ClientPublicData } from '../../types'
+import { ClientData, ClientPublicData, EditableClientData } from '../../types'
 import {
   addClientToApi,
+  editClientFromApi,
+  getClientFromApi,
   getClientsFromApi,
   removeClientFromApi,
 } from '../../api/clients'
-import { AddClientInputData } from '../../pages/clients/components/AddClientModal/hooks/useAddClient'
 
 /**
  * State
@@ -35,7 +36,7 @@ const getClients = createAsyncThunk('clients/getClients', async () => {
 
 const addClient = createAsyncThunk(
   'clients/addClient',
-  async (clientData: AddClientInputData) => {
+  async (clientData: EditableClientData) => {
     const newClient = {
       ...clientData,
       password: internet.password(),
@@ -43,6 +44,30 @@ const addClient = createAsyncThunk(
     } as ClientData
 
     return addClientToApi(newClient)
+      .then(res => {
+        return getClientsFromApi()
+      })
+      .catch(err => {
+        throw new Error(err)
+      })
+  }
+)
+
+type EditClient = {
+  clientId: string
+  clientDataToUpdate: EditableClientData
+}
+const editClient = createAsyncThunk(
+  'clients/removeClient',
+  async ({ clientId, clientDataToUpdate }: EditClient) => {
+    const clientData = await getClientFromApi(clientId)
+
+    const updatedClientData = {
+      ...clientData,
+      ...clientDataToUpdate,
+    } as ClientData
+
+    return editClientFromApi(updatedClientData)
       .then(res => {
         return getClientsFromApi()
       })
@@ -129,6 +154,6 @@ export const clientsSlice = createSlice({
   },
 })
 
-export { getClients, addClient, removeClient }
+export { getClients, addClient, editClient, removeClient }
 
 export default clientsSlice.reducer

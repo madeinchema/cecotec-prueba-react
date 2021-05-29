@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Button } from '../../components'
-import Portal from '../../components/layout/Portal'
+import { Button, Portal } from '../../components'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { getClients } from '../../state/slices/clientsSlice'
 import { ClientPublicData } from '../../types'
-import './clients.scss'
 import AddClientModal from './components/AddClientModal'
 import ClientCard from './components/ClientCard'
+import './clients.scss'
 
 const Clients = (): JSX.Element => {
   const { data, loading, error } = useTypedSelector(state => state.clients)
