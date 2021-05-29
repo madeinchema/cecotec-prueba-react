@@ -4,6 +4,7 @@ import './styles.scss'
 
 type ButtonGroupDataSource = ButtonProps & {
   id: string
+  onClick: () => void
 }
 
 type ButtonGroupProps = {
