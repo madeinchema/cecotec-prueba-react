@@ -1,0 +1,51 @@
+.modal {
+  position: absolute;
+  z-index: 1;
+
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  &--content--container {
+    margin: 100px auto;
+    background-color: #fefefe;
+    border: 1px solid #888;
+    max-width: 24rem;
+    min-width: 12rem;
+  }
+
+  &--content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &--header {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .close {
+      color: #888;
+      font-size: 2rem;
+
+      &:hover,
+      &:focus {
+        color: #111;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
