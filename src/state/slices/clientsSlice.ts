@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { ClientPublicData } from '../../types'
-import { getClientsFromApi } from '../../utils/functions/getClientsFromApi'
+import { internet, image } from 'faker'
+import { ClientData, ClientPublicData } from '../../types'
+import { addClientToApi, getClientsFromApi } from '../../api/clients'
+import { AddClientInputData } from '../../pages/clients/components/AddClientModal/hooks/useAddClient'
 
 /**
  * State
@@ -27,6 +29,31 @@ const getClients = createAsyncThunk('clients/getClients', async () => {
   return response
 })
 
+const addClient = createAsyncThunk(
+  'clients/addClient',
+  async (clientData: AddClientInputData, { getState }) => {
+    const {
+      clients: { data },
+    } = (await getState()) as {
+      clients: ClientsSliceState
+    }
+
+    const newClient = {
+      ...clientData,
+      password: internet.password(),
+      avatar: image.avatar(),
+    } as ClientData
+
+    return addClientToApi(newClient)
+      .then(res => {
+        return getClientsFromApi()
+      })
+      .catch(err => {
+        throw new Error(err)
+      })
+  }
+)
+
 /**
  * Slice
  */
@@ -40,15 +67,31 @@ export const clientsSlice = createSlice({
       state.success = undefined
       state.error = undefined
     })
-
     builder.addCase(getClients.fulfilled, (state, action) => {
       state.data = action.payload
       state.loading = false
       state.success = true
       state.error = undefined
     })
-
     builder.addCase(getClients.rejected, (state, action) => {
+      state.data = []
+      state.loading = false
+      state.success = false
+      state.error = action.error.message
+    })
+
+    builder.addCase(addClient.pending, state => {
+      state.loading = true
+      state.success = undefined
+      state.error = undefined
+    })
+    builder.addCase(addClient.fulfilled, (state, action) => {
+      state.data = action.payload
+      state.loading = false
+      state.success = true
+      state.error = undefined
+    })
+    builder.addCase(addClient.rejected, (state, action) => {
       state.data = []
       state.loading = false
       state.success = false
@@ -57,6 +100,6 @@ export const clientsSlice = createSlice({
   },
 })
 
-export { getClients }
+export { getClients, addClient }
 
 export default clientsSlice.reducer
