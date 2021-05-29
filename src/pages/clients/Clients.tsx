@@ -1,25 +1,22 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Button } from '../../components'
 import Portal from '../../components/layout/Portal'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
+import { getClients } from '../../state/slices/clientsSlice'
+import { ClientPublicData } from '../../types'
 import './clients.scss'
 import AddClientModal from './components/AddClientModal'
 import ClientCard from './components/ClientCard'
 
-export interface Client {
-  id: number
-  name: string
-  email: string
-}
-
-const clientsList = [
-  { id: 1, name: 'John Doe', email: 'example@gmail.com' },
-  { id: 2, name: 'Jane Doe', email: 'testing@gmail.com' },
-  { id: 3, name: 'Jenni Doe', email: 'jenni@gmail.com' },
-  { id: 4, name: 'Clark Doe', email: 'clark@gmail.com' },
-]
-
 const Clients = (): JSX.Element => {
+  const { data, loading, error } = useTypedSelector(state => state.clients)
   const [showAddClientModal, setShowAddClientModal] = useState(false)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getClients())
+  }, [dispatch])
 
   const toggleAddClientModal = (): void => {
     setShowAddClientModal(prevState => !prevState)
@@ -38,16 +35,24 @@ const Clients = (): JSX.Element => {
             Añadir cliente
           </Button>
         </div>
-        <div className="clients--grid">
-          {clientsList.map((client: Client) => (
-            <ClientCard
-              key={`${client.id}-card`}
-              id={client.id}
-              name={client.name}
-              email={client.email}
-            />
-          ))}
-        </div>
+        {loading && <div>Loading...</div>}
+        {!loading && !error && data.length === 0 && (
+          <div className="clients--empty">Empty</div>
+        )}
+        {data.length > 0 && (
+          <div className="clients--grid">
+            {data.map((clientData: ClientPublicData) => (
+              <ClientCard
+                key={`${clientData.id}-card`}
+                id={clientData.id}
+                firstName={clientData.firstName}
+                lastName={clientData.lastName}
+                email={clientData.email}
+                avatar={clientData.avatar}
+              />
+            ))}
+          </div>
+        )}
         {showAddClientModal && (
           <Portal id="add-client-modal">
             <AddClientModal onClose={toggleAddClientModal} />
