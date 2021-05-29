@@ -39,7 +39,7 @@ const Clients = (): JSX.Element => {
         {!loading && !error && data.length === 0 && (
           <div className="clients--empty">Empty</div>
         )}
-        {data.length > 0 && (
+        {!loading && data.length > 0 && (
           <div className="clients--grid">
             {data.map((clientData: ClientPublicData) => (
               <ClientCard

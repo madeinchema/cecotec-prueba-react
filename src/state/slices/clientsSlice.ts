@@ -1,7 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { internet, image } from 'faker'
 import { ClientData, ClientPublicData } from '../../types'
-import { addClientToApi, getClientsFromApi } from '../../api/clients'
+import {
+  addClientToApi,
+  getClientsFromApi,
+  removeClientFromApi,
+} from '../../api/clients'
 import { AddClientInputData } from '../../pages/clients/components/AddClientModal/hooks/useAddClient'
 
 /**
@@ -31,13 +35,7 @@ const getClients = createAsyncThunk('clients/getClients', async () => {
 
 const addClient = createAsyncThunk(
   'clients/addClient',
-  async (clientData: AddClientInputData, { getState }) => {
-    const {
-      clients: { data },
-    } = (await getState()) as {
-      clients: ClientsSliceState
-    }
-
+  async (clientData: AddClientInputData) => {
     const newClient = {
       ...clientData,
       password: internet.password(),
@@ -45,6 +43,19 @@ const addClient = createAsyncThunk(
     } as ClientData
 
     return addClientToApi(newClient)
+      .then(res => {
+        return getClientsFromApi()
+      })
+      .catch(err => {
+        throw new Error(err)
+      })
+  }
+)
+
+const removeClient = createAsyncThunk(
+  'clients/removeClient',
+  async (clientId: string) => {
+    return removeClientFromApi(clientId)
       .then(res => {
         return getClientsFromApi()
       })
@@ -97,9 +108,27 @@ export const clientsSlice = createSlice({
       state.success = false
       state.error = action.error.message
     })
+
+    builder.addCase(removeClient.pending, state => {
+      state.loading = true
+      state.success = undefined
+      state.error = undefined
+    })
+    builder.addCase(removeClient.fulfilled, (state, action) => {
+      state.data = action.payload
+      state.loading = false
+      state.success = true
+      state.error = undefined
+    })
+    builder.addCase(removeClient.rejected, (state, action) => {
+      state.data = []
+      state.loading = false
+      state.success = false
+      state.error = action.error.message
+    })
   },
 })
 
-export { getClients, addClient }
+export { getClients, addClient, removeClient }
 
 export default clientsSlice.reducer

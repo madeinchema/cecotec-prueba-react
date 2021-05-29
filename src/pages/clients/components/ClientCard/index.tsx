@@ -1,6 +1,11 @@
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import ButtonGroup from '../../../../components/common/ButtonGroup'
 import { ClientPublicData } from '../../../../types'
+import { removeClient } from '../../../../state/slices/clientsSlice'
 import './styles.scss'
+import Portal from '../../../../components/layout/Portal'
+import ModalConfirm from '../../../../components/common/ModalConfirm'
 
 const ClientCard = ({
   id,
@@ -8,6 +13,18 @@ const ClientCard = ({
   email,
   avatar,
 }: ClientPublicData): JSX.Element => {
+  const [showAddClientModal, setShowAddClientModal] = useState(false)
+  const dispatch = useDispatch()
+
+  function toggleModal(): void {
+    setShowAddClientModal(prevState => !prevState)
+  }
+
+  function handleRemoveClient(): void {
+    dispatch(removeClient(id))
+    toggleModal()
+  }
+
   const buttonGroupDataSource = [
     {
       id: `${id}-edit`,
@@ -17,9 +34,22 @@ const ClientCard = ({
     {
       id: `${id}-remove`,
       children: 'Eliminar',
-      onClick: () => console.log('eliminar cliente'),
+      onClick: () => toggleModal(),
     },
   ]
+
+  const modalConfirmButtonGroupConfig = {
+    confirmBtnConfig: {
+      id: `modal-cancel-remove-client-${id}`,
+      content: 'Cancelar',
+      onClick: () => toggleModal(),
+    },
+    cancelBtnConfig: {
+      id: `modal-confirm-remove-client-${id}`,
+      content: 'Eliminar cliente',
+      onClick: () => handleRemoveClient(),
+    },
+  }
 
   return (
     <div className="client-card">
@@ -33,6 +63,18 @@ const ClientCard = ({
         </div>
       </div>
       <ButtonGroup dataSource={buttonGroupDataSource} />
+      {showAddClientModal && (
+        <Portal id="add-client-modal">
+          <ModalConfirm
+            title="¿Eliminar cliente?"
+            onClose={toggleModal}
+            confirmBtnConfig={modalConfirmButtonGroupConfig.confirmBtnConfig}
+            cancelBtnConfig={modalConfirmButtonGroupConfig.cancelBtnConfig}
+          >
+            ¿Estás seguro? Esta acción no se puede deshacer.
+          </ModalConfirm>
+        </Portal>
+      )}
     </div>
   )
 }
