@@ -1,0 +1,11 @@
+type Product {
+  id: ID
+  name: String @fake(type: productName)
+  price: String @fake(type: money, options: {minMoney: 10, maxMoney: 200, decimalPlaces: 2})
+  image: String @fake(type: imageUrl, options: {imageKeywords: ["product", "thing"], randomizeImageUrl: true})
+}
+
+type Query {
+	allProducts(id: ID): [Product!]
+  product(id: ID): Product!
+}
