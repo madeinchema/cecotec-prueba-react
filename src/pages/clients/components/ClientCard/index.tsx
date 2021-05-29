@@ -1,8 +1,13 @@
 import ButtonGroup from '../../../../components/common/ButtonGroup'
-import { Client } from '../../Clients'
+import { ClientPublicData } from '../../../../types'
 import './styles.scss'
 
-const ClientCard = ({ id, name, email }: Client): JSX.Element => {
+const ClientCard = ({
+  id,
+  firstName,
+  email,
+  avatar,
+}: ClientPublicData): JSX.Element => {
   const buttonGroupDataSource = [
     {
       id: `${id}-edit`,
@@ -19,10 +24,10 @@ const ClientCard = ({ id, name, email }: Client): JSX.Element => {
   return (
     <div className="client-card">
       <div className="container">
-        <div className="avatar" />
+        <img src={avatar} alt="client-avatar" className="avatar" />
         <div className="details">
           <p className="details--name">
-            {name} <span className="details--id">#{id}</span>
+            {firstName} <span className="details--id">#{id}</span>
           </p>
           <p className="details--email">{email}</p>
         </div>
