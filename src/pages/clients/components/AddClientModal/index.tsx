@@ -1,5 +1,7 @@
-import ModalConfirm from '../../../../components/common/ModalConfirm'
-import useAddClient from './hooks/useAddClient'
+import { useDispatch } from 'react-redux'
+import { ModalConfirm } from '../../../../components'
+import { addClient } from '../../../../state/slices/clientsSlice'
+import useClientData from '../../hooks/useClientData'
 import './styles.scss'
 
 type AddClientModalProps = {
@@ -7,10 +9,15 @@ type AddClientModalProps = {
 }
 
 const AddClientModal = ({ onClose }: AddClientModalProps): JSX.Element => {
+  const dispatch = useDispatch()
   const {
-    addClientInputData,
+    clientInputData,
     handlers: { handleInputData, handleSubmitInputData },
-  } = useAddClient()
+  } = useClientData({ onSubmit: handleAddClient })
+
+  function handleAddClient(): void {
+    dispatch(addClient(clientInputData))
+  }
 
   const modalConfirmButtonGroupConfig = {
     confirmBtnConfig: {
@@ -40,7 +47,7 @@ const AddClientModal = ({ onClose }: AddClientModalProps): JSX.Element => {
             name="firstName"
             type="text"
             maxLength={36}
-            value={addClientInputData.firstName}
+            value={clientInputData.firstName}
             onChange={handleInputData}
           />
         </label>
@@ -52,7 +59,7 @@ const AddClientModal = ({ onClose }: AddClientModalProps): JSX.Element => {
             name="lastName"
             type="text"
             maxLength={48}
-            value={addClientInputData.lastName}
+            value={clientInputData.lastName}
             onChange={handleInputData}
           />
         </label>
@@ -64,7 +71,7 @@ const AddClientModal = ({ onClose }: AddClientModalProps): JSX.Element => {
             name="email"
             type="email"
             maxLength={64}
-            value={addClientInputData.email}
+            value={clientInputData.email}
             onChange={handleInputData}
           />
         </label>
@@ -75,7 +82,7 @@ const AddClientModal = ({ onClose }: AddClientModalProps): JSX.Element => {
             id="password"
             name="password"
             type="text"
-            value={addClientInputData.password}
+            value={clientInputData.password}
             onChange={handleInputData}
           />
         </label>
