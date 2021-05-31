@@ -1,3 +1,6 @@
+/**
+ * Clients
+ */
 export interface ClientPublicData {
   id: string
   firstName: string
@@ -17,4 +20,19 @@ export interface EditableClientData {
   lastName: string
   email: string
   password: string
+}
+
+/**
+ * Products
+ */
+export interface Product {
+  id: string
+  name: string
+  price: string
+  image: string
+}
+
+export interface EditableProductData {
+  name: string
+  price: string
 }
