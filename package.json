@@ -47,7 +47,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "json-server --watch ./server/db.json --port 8080",
-    "graphql": "cd ./server && graphql-faker --open"
+    "graphql": "nodemon ./server/graphql"
   },
   "eslintConfig": {
     "extends": [
