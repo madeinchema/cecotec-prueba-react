@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import './styles.scss'
 
 const Header = (): JSX.Element => {
@@ -6,8 +7,12 @@ const Header = (): JSX.Element => {
       <div className="header--container">
         <img className="logo--img" src="./logo.png" alt="" />
         <nav className="nav">
-          <li className="nav--item">Clientes</li>
-          <li className="nav--item">Productos</li>
+          <li className="nav--item">
+            <Link to="/clients">Clientes</Link>
+          </li>
+          <li className="nav--item">
+            <Link to="/products">Productos</Link>
+          </li>
           <li className="nav--item">Cerrar sesión</li>
         </nav>
       </div>
