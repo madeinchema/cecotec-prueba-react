@@ -4,6 +4,7 @@ import './App.scss'
 import Layout from './components/layout/Layout'
 import Clients from './pages/clients/Clients'
 import Login from './pages/login/Login'
+import Products from './pages/products/Products'
 
 function App(): JSX.Element {
   return (
@@ -19,7 +20,9 @@ function App(): JSX.Element {
             </Layout>
           </Route>
           <Route path="/products">
-            <Layout>Products</Layout>
+            <Layout>
+              <Products />
+            </Layout>
           </Route>
         </Switch>
       </Router>
