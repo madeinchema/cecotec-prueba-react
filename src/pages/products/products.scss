@@ -1,0 +1,45 @@
+@import '../../theme/variables';
+
+.products {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  &--container {
+    padding: 1rem 1.5rem;
+    width: 100%;
+    max-width: 90rem;
+  }
+  &--header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    h1 {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+  &--grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .products {
+    &--grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .products {
+    // padding: 1.75rem;
+    &--grid {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+  }
+}
