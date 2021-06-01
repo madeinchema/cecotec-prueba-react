@@ -4,7 +4,7 @@ import ButtonGroup from '../../../../components/common/ButtonGroup'
 import { Product } from '../../../../types'
 
 import { Portal, ModalConfirm } from '../../../../components'
-import EditProductModal from './components/EditProductModal'
+import EditProductModal from '../EditProductModal'
 import './styles.scss'
 import { GET_ALL_PRODUCTS, REMOVE_PRODUCT } from '../../../../queries'
 

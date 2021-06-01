@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { ModalConfirm } from '../../../../../components'
-import { useTypedSelector } from '../../../../../hooks/useTypedSelector'
-import { editClient } from '../../../../../state/slices/clientsSlice'
-import { ClientData } from '../../../../../types'
-import useClientData from '../../../hooks/useClientData'
+import { ModalConfirm } from '../../../components'
+import { useTypedSelector } from '../../../hooks/useTypedSelector'
+import { editClient } from '../../../state/slices/clientsSlice'
+import { ClientData } from '../../../types'
+import useClientData from '../hooks/useClientData'
 
 type EditClientModalProps = {
   clientId: string
