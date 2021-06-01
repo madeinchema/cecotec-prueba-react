@@ -1,8 +1,8 @@
 import { useMutation } from '@apollo/client'
-import { ModalConfirm } from '../../../../../components'
-import { GET_ALL_PRODUCTS, EDIT_PRODUCT } from '../../../../../queries'
-import useProductForm from '../../../hooks/useProductForm'
-import ProductForm from '../../ProductForm'
+import { ModalConfirm } from '../../../components'
+import { GET_ALL_PRODUCTS, EDIT_PRODUCT } from '../../../queries'
+import useProductForm from '../hooks/useProductForm'
+import ProductForm from './ProductForm'
 
 type EditProductModalProps = {
   productId: string
