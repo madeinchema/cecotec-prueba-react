@@ -1,21 +1,28 @@
-import { useDispatch } from 'react-redux'
+import { useMutation, useQuery } from '@apollo/client'
 import { ModalConfirm } from '../../../../components'
-import { addClient } from '../../../../state/slices/clientsSlice'
-import useProductData from '../../hooks/useProductData'
+import { ADD_PRODUCT, GET_ALL_PRODUCTS } from '../../../../queries'
+import useProductForm from '../../hooks/useProductForm'
 
 type AddProductModalProps = {
   onClose: () => void
 }
 
 const AddProductModal = ({ onClose }: AddProductModalProps): JSX.Element => {
-  const dispatch = useDispatch()
   const {
-    productInputData,
-    handlers: { handleInputData, handleSubmitInputData },
-  } = useProductData({ onSubmit: handleAddClient })
+    productForm,
+    handlers: { handleChangeProductForm, handleSubmitProductForm },
+  } = useProductForm({ onSubmit: handleAddProduct })
+  const [addProduct] = useMutation(ADD_PRODUCT, {
+    refetchQueries: [{ query: GET_ALL_PRODUCTS }],
+  })
 
-  function handleAddClient(): void {
-    // dispatch(addClient(productInputData))
+  function handleAddProduct(): void {
+    addProduct({
+      variables: {
+        name: productForm.name,
+        price: productForm.price,
+      },
+    })
   }
 
   const modalConfirmButtonGroupConfig = {
@@ -27,7 +34,7 @@ const AddProductModal = ({ onClose }: AddProductModalProps): JSX.Element => {
     cancelBtnConfig: {
       id: 'add-product-modal-add',
       content: 'Añadir producto',
-      onClick: handleSubmitInputData,
+      onClick: handleSubmitProductForm,
     },
   }
 
@@ -46,8 +53,8 @@ const AddProductModal = ({ onClose }: AddProductModalProps): JSX.Element => {
             name="name"
             type="text"
             maxLength={36}
-            value={productInputData.name}
-            onChange={handleInputData}
+            value={productForm.name}
+            onChange={handleChangeProductForm}
           />
         </label>
 
@@ -58,8 +65,8 @@ const AddProductModal = ({ onClose }: AddProductModalProps): JSX.Element => {
             name="price"
             type="text"
             maxLength={48}
-            value={productInputData.price}
-            onChange={handleInputData}
+            value={productForm.price}
+            onChange={handleChangeProductForm}
           />
         </label>
       </form>

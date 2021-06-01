@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useMutation } from '@apollo/client'
 import { ModalConfirm } from '../../../../../components'
-import useProductData from '../../../hooks/useProductData'
+import { GET_ALL_PRODUCTS, EDIT_PRODUCT } from '../../../../../queries'
+import useProductForm from '../../../hooks/useProductForm'
 
 type EditProductModalProps = {
   productId: string
@@ -11,33 +12,23 @@ const EditProductModal = ({
   productId,
   onClose,
 }: EditProductModalProps): JSX.Element => {
-  const [initialInputData, setInitialInputData] = useState({
-    name: '',
-    price: '',
+  const [editProduct] = useMutation(EDIT_PRODUCT, {
+    refetchQueries: [{ query: GET_ALL_PRODUCTS }],
   })
   const {
-    productInputData,
-    handlers: { handleInputData, handleSubmitInputData },
-  } = useProductData({ onSubmit: handleAddClient, initialInputData })
+    productForm,
+    handlers: { handleChangeProductForm, handleSubmitProductForm },
+  } = useProductForm({ productId, onSubmit: handleAddProduct })
 
-  /**
-   * Get selectedProduct data & set it in the input
-   */
-  // const clientsSelector = useTypedSelector(state => state.clients.data)
-  // const selectedProduct = clientsSelector.find(
-  //   (client: ClientData) => client.id === clientId
-  // )
-  useEffect(() => {
-    // if (selectedProduct) {
-    //   setInitialInputData({
-    //     name: selectedProduct.name,
-    //     price: selectedProduct.price,
-    //   })
-    // }
-  }, [])
-
-  function handleAddClient(): void {
-    //
+  function handleAddProduct(): void {
+    editProduct({
+      variables: {
+        id: productId,
+        name: productForm.name,
+        price: productForm.price,
+      },
+    })
+    onClose()
   }
 
   const modalConfirmButtonGroupConfig = {
@@ -49,13 +40,13 @@ const EditProductModal = ({
     cancelBtnConfig: {
       id: 'edit-product-modal-edit',
       content: 'Editar producto',
-      onClick: handleSubmitInputData,
+      onClick: handleSubmitProductForm,
     },
   }
 
   return (
     <ModalConfirm
-      title="Editar cliente"
+      title="Editar producto"
       onClose={onClose}
       confirmBtnConfig={modalConfirmButtonGroupConfig.confirmBtnConfig}
       cancelBtnConfig={modalConfirmButtonGroupConfig.cancelBtnConfig}
@@ -68,8 +59,8 @@ const EditProductModal = ({
             name="name"
             type="text"
             maxLength={36}
-            value={productInputData.name}
-            onChange={handleInputData}
+            value={productForm.name}
+            onChange={handleChangeProductForm}
           />
         </label>
 
@@ -80,8 +71,8 @@ const EditProductModal = ({
             name="price"
             type="text"
             maxLength={36}
-            value={productInputData.price}
-            onChange={handleInputData}
+            value={productForm.price}
+            onChange={handleChangeProductForm}
           />
         </label>
       </form>
