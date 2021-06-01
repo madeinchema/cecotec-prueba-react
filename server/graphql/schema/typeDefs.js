@@ -10,13 +10,15 @@ const typeDefs = gql`
 
   # Queries
   type Query {
-    getAllProducts: [Product!]!
+    allProducts: [Product!]!
   }
 
   # Mutations
+  # TODO: add/edit should return added/edited product
   type Mutation {
-    createProduct(name: String!, price: String!): Product!
-    removeLastProduct: [Product!]!
+    addProduct(name: String!, price: String!): Product!
+    editProduct(id: ID!, name: String!, price: String!): [Product!]!
+    removeProduct(id: ID!): [Product!]!
   }
 `
 
