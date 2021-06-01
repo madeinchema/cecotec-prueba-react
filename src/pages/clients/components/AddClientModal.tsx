@@ -1,8 +1,7 @@
 import { useDispatch } from 'react-redux'
-import { ModalConfirm } from '../../../../components'
-import { addClient } from '../../../../state/slices/clientsSlice'
-import useClientData from '../../hooks/useClientData'
-import './styles.scss'
+import { ModalConfirm } from '../../../components'
+import { addClient } from '../../../state/slices/clientsSlice'
+import useClientData from '../hooks/useClientData'
 
 type AddClientModalProps = {
   onClose: () => void
