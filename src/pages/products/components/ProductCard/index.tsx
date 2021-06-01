@@ -1,44 +1,23 @@
 import { useState } from 'react'
-import { gql, useMutation, useQuery } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import ButtonGroup from '../../../../components/common/ButtonGroup'
 import { Product } from '../../../../types'
 
 import { Portal, ModalConfirm } from '../../../../components'
 import EditProductModal from './components/EditProductModal'
 import './styles.scss'
+import { GET_ALL_PRODUCTS, REMOVE_PRODUCT } from '../../../../queries'
 
 type ModalType = 'REMOVE_PRODUCT' | 'EDIT_PRODUCT'
-
-const ALL_PRODUCTS = gql`
-  query AllProducts {
-    allProducts {
-      id
-      name
-      price
-      image
-    }
-  }
-`
-
-const REMOVE_PRODUCT = gql`
-  mutation RemoveProduct($id: ID!) {
-    removeProduct(id: $id) {
-      id
-      name
-      price
-      image
-    }
-  }
-`
 
 const ProductCard = ({ id, name, price, image }: Product): JSX.Element => {
   const [handleShowProductModals, setHandleShowProductModals] = useState({
     REMOVE_PRODUCT: false,
     EDIT_PRODUCT: false,
   })
-  const { data, refetch } = useQuery(ALL_PRODUCTS)
-  console.log('🚀 ~ file: index.tsx ~ line 40 ~ data', data)
-  const [removeProduct] = useMutation(REMOVE_PRODUCT)
+  const [removeProduct] = useMutation(REMOVE_PRODUCT, {
+    refetchQueries: [{ query: GET_ALL_PRODUCTS }],
+  })
 
   const toggleProductModal = (modalType: ModalType): void => {
     setHandleShowProductModals(prevState => ({
@@ -49,7 +28,6 @@ const ProductCard = ({ id, name, price, image }: Product): JSX.Element => {
 
   const handleRemoveProduct = (): void => {
     removeProduct({ variables: { id } })
-    refetch()
     toggleProductModal('REMOVE_PRODUCT')
   }
 
