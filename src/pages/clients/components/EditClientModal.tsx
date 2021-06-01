@@ -65,7 +65,7 @@ const EditClientModal = ({
     },
   }
 
-  const clientFormConfig = {
+  const editClientFormConfig = {
     onChange: handleInputData,
     fields: {
       firstName: clientInputData.firstName,
@@ -82,7 +82,7 @@ const EditClientModal = ({
       confirmBtnConfig={modalConfirmButtonGroupConfig.confirmBtnConfig}
       cancelBtnConfig={modalConfirmButtonGroupConfig.cancelBtnConfig}
     >
-      <ClientForm config={clientFormConfig} />
+      <ClientForm config={editClientFormConfig} />
     </ModalConfirm>
   )
 }

@@ -45,7 +45,7 @@ const EditProductModal = ({
     },
   }
 
-  const productFormConfig = {
+  const editProductFormConfig = {
     onChange: handleChangeProductForm,
     fields: {
       name: productForm.name,
@@ -60,7 +60,7 @@ const EditProductModal = ({
       confirmBtnConfig={modalConfirmButtonGroupConfig.confirmBtnConfig}
       cancelBtnConfig={modalConfirmButtonGroupConfig.cancelBtnConfig}
     >
-      <ProductForm config={productFormConfig} />
+      <ProductForm config={editProductFormConfig} />
     </ModalConfirm>
   )
 }

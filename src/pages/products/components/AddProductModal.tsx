@@ -40,7 +40,7 @@ const AddProductModal = ({ onClose }: AddProductModalProps): JSX.Element => {
     },
   }
 
-  const productFormConfig = {
+  const addProductFormConfig = {
     onChange: handleChangeProductForm,
     fields: {
       name: productForm.name,
@@ -55,7 +55,7 @@ const AddProductModal = ({ onClose }: AddProductModalProps): JSX.Element => {
       confirmBtnConfig={modalConfirmButtonGroupConfig.confirmBtnConfig}
       cancelBtnConfig={modalConfirmButtonGroupConfig.cancelBtnConfig}
     >
-      <ProductForm config={productFormConfig} />
+      <ProductForm config={addProductFormConfig} />
     </ModalConfirm>
   )
 }

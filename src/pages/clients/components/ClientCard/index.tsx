@@ -5,7 +5,7 @@ import { ClientPublicData } from '../../../../types'
 import { removeClient } from '../../../../state/slices/clientsSlice'
 
 import { Portal, ModalConfirm } from '../../../../components'
-import EditClientModal from './components/EditClientModal'
+import EditClientModal from '../EditClientModal'
 import './styles.scss'
 
 type ModalType = 'REMOVE_CLIENT' | 'EDIT_CLIENT'
