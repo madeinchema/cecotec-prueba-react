@@ -22,22 +22,30 @@
   }
   &--grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 1rem;
-  }
-}
-
-@media (max-width: 360px) {
-  .products {
-    &--grid {
-      grid-template-columns: 1fr;
-    }
   }
 }
 
 @media (min-width: 768px) {
   .products {
-    // padding: 1.75rem;
+    padding-top: 1.75rem;
+    &--grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .products {
+    &--grid {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  .products {
     &--grid {
       grid-template-columns: 1fr 1fr 1fr 1fr;
     }
