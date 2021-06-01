@@ -17,7 +17,7 @@ const Card = ({
   className,
   buttonGroupDataSource,
 }: CardProps): JSX.Element => {
-  const propsClassName = `${className}-card` || ''
+  const propsClassName = className ? `${className}-card` : null
 
   return (
     <div className={`${propsClassName} card`}>
