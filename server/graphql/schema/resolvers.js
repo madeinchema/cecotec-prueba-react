@@ -15,6 +15,7 @@ const resolvers = {
     addProduct(parent, args, context, info) {
       const newProduct = args
       newProduct.id = uuid()
+      newProduct.price = parseInt(args.price, 10).toFixed(2)
       newProduct.image = image.fashion()
       products.push(newProduct)
       return newProduct
@@ -30,7 +31,7 @@ const resolvers = {
       const productIndex = products.findIndex(product => product.id === id)
       if (productIndex !== -1) {
         products[productIndex].name = name
-        products[productIndex].price = price
+        products[productIndex].price = parseInt(price, 10).toFixed(2)
       }
       return products
     },
