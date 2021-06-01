@@ -58,18 +58,17 @@ const ProductCard = ({ id, name, price, image }: Product): JSX.Element => {
   }
 
   return (
-    <div className="product-card">
-      <div className="container">
-        <img src={image} alt="product" />
-        <div className="details">
-          <p className="details--name">
-            {name} <span className="details--id">#{id}</span>
-          </p>
-          <p className="details--price">{price}€</p>
+    <>
+      <div className="product-card">
+        <div className="product-card--container">
+          <img src={image} alt="product" />
+          <div className="product-card--details">
+            <p className="product-card--details--name">{name}</p>
+            <p className="product-card--details--price">{price}€</p>
+          </div>
         </div>
+        <ButtonGroup dataSource={buttonGroupDataSource} />
       </div>
-
-      <ButtonGroup dataSource={buttonGroupDataSource} />
 
       {handleShowProductModals.EDIT_PRODUCT && (
         <Portal id="edit-product-modal">
@@ -92,7 +91,7 @@ const ProductCard = ({ id, name, price, image }: Product): JSX.Element => {
           </ModalConfirm>
         </Portal>
       )}
-    </div>
+    </>
   )
 }
 
