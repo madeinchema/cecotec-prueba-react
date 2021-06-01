@@ -1,6 +1,6 @@
 .client-card {
   background-color: #fff;
-  .container {
+  .card--container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,8 +8,8 @@
     padding: 1rem;
   }
 
-  .details {
-    font-size: 0.75rem;
+  &--details {
+    font-size: 0.85rem;
     text-align: center;
     font-weight: 500;
 
@@ -31,9 +31,11 @@
     }
   }
 
-  .avatar {
-    height: 4rem;
-    width: 4rem;
+  img {
+    height: 6rem;
+    width: 6rem;
+    min-height: 6rem;
+    min-width: 6rem;
     border-radius: 100%;
     background-color: #c4c4c4;
     margin: 0.5rem;
@@ -42,7 +44,7 @@
 
 @media (min-width: 768px) {
   .client-card {
-    .details {
+    &--details {
       font-size: 1rem;
       text-align: center;
       font-weight: 500;

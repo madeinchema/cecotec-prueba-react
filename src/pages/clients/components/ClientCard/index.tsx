@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import ButtonGroup from '../../../../components/common/ButtonGroup'
 import { ClientPublicData } from '../../../../types'
 import { removeClient } from '../../../../state/slices/clientsSlice'
 
-import { Portal, ModalConfirm } from '../../../../components'
+import { Portal, ModalConfirm, Card } from '../../../../components'
 import EditClientModal from '../EditClientModal'
 import './styles.scss'
 
@@ -61,18 +60,23 @@ const ClientCard = ({
   }
 
   return (
-    <div className="client-card">
-      <div className="container">
-        <img src={avatar} alt="client-avatar" className="avatar" />
-        <div className="details">
-          <p className="details--name">
-            {firstName} <span className="details--id">#{id}</span>
-          </p>
-          <p className="details--email">{email}</p>
-        </div>
-      </div>
-
-      <ButtonGroup dataSource={buttonGroupDataSource} />
+    <>
+      <Card className="client" buttonGroupDataSource={buttonGroupDataSource}>
+        <>
+          <img
+            src={avatar}
+            alt="client-avatar"
+            className="client-card--avatar"
+          />
+          <div className="client-card--details">
+            <p className="client-card--details--name">
+              {firstName}{' '}
+              <span className="client-card--details--id">#{id}</span>
+            </p>
+            <p className="client-card--details--email">{email}</p>
+          </div>
+        </>
+      </Card>
 
       {handleShowClientModals.EDIT_CLIENT && (
         <Portal id="edit-client-modal">
@@ -95,7 +99,7 @@ const ClientCard = ({
           </ModalConfirm>
         </Portal>
       )}
-    </div>
+    </>
   )
 }
 

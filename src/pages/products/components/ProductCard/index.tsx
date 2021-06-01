@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client'
 import ButtonGroup from '../../../../components/common/ButtonGroup'
 import { Product } from '../../../../types'
 
-import { Portal, ModalConfirm } from '../../../../components'
+import { Portal, ModalConfirm, Card } from '../../../../components'
 import EditProductModal from '../EditProductModal'
 import './styles.scss'
 import { GET_ALL_PRODUCTS, REMOVE_PRODUCT } from '../../../../queries'
@@ -59,16 +59,15 @@ const ProductCard = ({ id, name, price, image }: Product): JSX.Element => {
 
   return (
     <>
-      <div className="product-card">
-        <div className="product-card--container">
+      <Card className="product" buttonGroupDataSource={buttonGroupDataSource}>
+        <>
           <img src={image} alt="product" />
           <div className="product-card--details">
             <p className="product-card--details--name">{name}</p>
             <p className="product-card--details--price">{price}€</p>
           </div>
-        </div>
-        <ButtonGroup dataSource={buttonGroupDataSource} />
-      </div>
+        </>
+      </Card>
 
       {handleShowProductModals.EDIT_PRODUCT && (
         <Portal id="edit-product-modal">
