@@ -1,8 +1,8 @@
 import { useMutation, useQuery } from '@apollo/client'
-import { ModalConfirm } from '../../../../components'
-import { ADD_PRODUCT, GET_ALL_PRODUCTS } from '../../../../queries'
-import useProductForm from '../../hooks/useProductForm'
-import ProductForm from '../ProductForm'
+import { ModalConfirm } from '../../../components'
+import { ADD_PRODUCT, GET_ALL_PRODUCTS } from '../../../queries'
+import useProductForm from '../hooks/useProductForm'
+import ProductForm from './ProductForm'
 
 type AddProductModalProps = {
   onClose: () => void

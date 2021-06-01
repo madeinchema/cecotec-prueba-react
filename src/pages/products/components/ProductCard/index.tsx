@@ -60,7 +60,7 @@ const ProductCard = ({ id, name, price, image }: Product): JSX.Element => {
   return (
     <div className="product-card">
       <div className="container">
-        <img src={image} alt="product-avatar" className="avatar" />
+        <img src={image} alt="product" />
         <div className="details">
           <p className="details--name">
             {name} <span className="details--id">#{id}</span>
