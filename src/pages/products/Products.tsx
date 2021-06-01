@@ -1,26 +1,15 @@
-import { gql, useMutation, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { useState } from 'react'
 import { Button, Portal } from '../../components'
-import { ClientPublicData, Product } from '../../types'
+import { GET_ALL_PRODUCTS } from '../../queries'
+import { Product } from '../../types'
 import AddProductModal from './components/AddProductModal'
 import ProductCard from './components/ProductCard'
 import './products.scss'
 
-const ALL_PRODUCTS = gql`
-  query AllProducts {
-    allProducts {
-      id
-      name
-      price
-      image
-    }
-  }
-`
-
 const Products = (): JSX.Element => {
   const [showAddClientModal, setShowAddClientModal] = useState(false)
-  const { loading, error, data } = useQuery(ALL_PRODUCTS)
-  console.log('🚀 ~ file: Products.tsx ~ line 32 ~ allProducts', data)
+  const { loading, error, data } = useQuery(GET_ALL_PRODUCTS)
 
   const toggleAddProductModal = (): void => {
     setShowAddClientModal(prevState => !prevState)
