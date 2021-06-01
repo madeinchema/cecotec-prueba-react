@@ -1,4 +1,5 @@
 const { v1: uuid } = require('uuid')
+const { image } = require('faker')
 const products = require('../products')
 
 const resolvers = {
@@ -14,8 +15,7 @@ const resolvers = {
     addProduct(parent, args, context, info) {
       const newProduct = args
       newProduct.id = uuid()
-      newProduct.image =
-        'https://source.unsplash.com/random/?product,thing#69104'
+      newProduct.image = image.fashion()
       products.push(newProduct)
       return newProduct
     },
