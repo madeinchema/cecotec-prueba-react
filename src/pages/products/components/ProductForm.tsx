@@ -8,37 +8,37 @@ interface ProductFormProps {
   }
 }
 
-const ProductForm = ({ config }: ProductFormProps): JSX.Element => {
-  return (
-    <form action="">
-      <label htmlFor="name">
-        Nombre
-        <input
-          id="name"
-          name="name"
-          type="text"
-          maxLength={36}
-          value={config.fields.name}
-          onChange={config.onChange}
-        />
-      </label>
+const ProductForm = ({
+  config: { onChange, fields },
+}: ProductFormProps): JSX.Element => (
+  <form action="">
+    <label htmlFor="name">
+      Nombre
+      <input
+        id="name"
+        name="name"
+        type="text"
+        maxLength={36}
+        value={fields.name}
+        onChange={onChange}
+      />
+    </label>
 
-      <label htmlFor="price">
-        Precio
-        <input
-          id="price"
-          name="price"
-          type="number"
-          min="0.00"
-          max="10000.00"
-          step="0.01"
-          placeholder="0,00"
-          value={config.fields.price}
-          onChange={config.onChange}
-        />
-      </label>
-    </form>
-  )
-}
+    <label htmlFor="price">
+      Precio
+      <input
+        id="price"
+        name="price"
+        type="number"
+        min="0.00"
+        max="10000.00"
+        step="0.01"
+        placeholder="0,00"
+        value={fields.price}
+        onChange={onChange}
+      />
+    </label>
+  </form>
+)
 
 export default ProductForm
