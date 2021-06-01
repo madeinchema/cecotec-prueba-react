@@ -4,7 +4,9 @@ import { ModalConfirm } from '../../../components'
 import { useTypedSelector } from '../../../hooks/useTypedSelector'
 import { editClient } from '../../../state/slices/clientsSlice'
 import { ClientData } from '../../../types'
+
 import useClientData from '../hooks/useClientData'
+import ClientForm from './ClientForm'
 
 type EditClientModalProps = {
   clientId: string
@@ -24,7 +26,7 @@ const EditClientModal = ({
   const {
     clientInputData,
     handlers: { handleInputData, handleSubmitInputData },
-  } = useClientData({ onSubmit: handleAddClient, initialInputData })
+  } = useClientData({ onSubmit: handleEditClient, initialInputData })
   const dispatch = useDispatch()
 
   /**
@@ -45,8 +47,9 @@ const EditClientModal = ({
     }
   }, [selectedClient])
 
-  function handleAddClient(): void {
+  function handleEditClient(): void {
     dispatch(editClient({ clientId, clientDataToUpdate: clientInputData }))
+    onClose()
   }
 
   const modalConfirmButtonGroupConfig = {
@@ -62,6 +65,16 @@ const EditClientModal = ({
     },
   }
 
+  const clientFormConfig = {
+    onChange: handleInputData,
+    fields: {
+      firstName: clientInputData.firstName,
+      lastName: clientInputData.lastName,
+      email: clientInputData.email,
+      password: clientInputData.password,
+    },
+  }
+
   return (
     <ModalConfirm
       title="Editar cliente"
@@ -69,54 +82,7 @@ const EditClientModal = ({
       confirmBtnConfig={modalConfirmButtonGroupConfig.confirmBtnConfig}
       cancelBtnConfig={modalConfirmButtonGroupConfig.cancelBtnConfig}
     >
-      <form action="">
-        <label htmlFor="firstName">
-          Nombre
-          <input
-            id="firstName"
-            name="firstName"
-            type="text"
-            maxLength={36}
-            value={clientInputData.firstName}
-            onChange={handleInputData}
-          />
-        </label>
-
-        <label htmlFor="lastName">
-          Apellidos
-          <input
-            id="lastName"
-            name="lastName"
-            type="text"
-            maxLength={48}
-            value={clientInputData.lastName}
-            onChange={handleInputData}
-          />
-        </label>
-
-        <label htmlFor="email">
-          Correo electrónico
-          <input
-            id="email"
-            name="email"
-            type="email"
-            maxLength={64}
-            value={clientInputData.email}
-            onChange={handleInputData}
-          />
-        </label>
-
-        <label htmlFor="password">
-          Contraseña
-          <input
-            id="password"
-            name="password"
-            type="text"
-            value={clientInputData.password}
-            onChange={handleInputData}
-          />
-        </label>
-      </form>
+      <ClientForm config={clientFormConfig} />
     </ModalConfirm>
   )
 }
