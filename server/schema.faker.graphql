@@ -5,7 +5,28 @@ type Product {
   image: String @fake(type: imageUrl, options: {imageKeywords: ["product", "thing"], randomizeImageUrl: true})
 }
 
+mutation AddProduct($name: String!, $price: String!) {
+  addProduct(name: $name, price: $price) {
+    id
+    name
+    price
+    image
+  }
+}
+
 type Query {
-	allProducts(id: ID): [Product!]
+	allProducts(id: ID): [Product!]! @listLength(min: 8, max: 15)
   product(id: ID): Product!
+}
+
+type Mutation {
+  addProduct(name: String!, price: String!): Product!
+  updateProduct(id: ID!, name: String!, price: String!): Product!
+  deleteProduct(id: ID!): Product!
+}
+
+type Subscription {
+	newProduct: Product!
+  updatedProduct: Product!
+  deletedProduct: Product!
 }
