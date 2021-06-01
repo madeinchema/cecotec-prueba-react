@@ -6,6 +6,8 @@ const resolvers = {
     allProducts() {
       return products
     },
+    product: (parent, { id }, context, info) =>
+      products.find(product => product.id === id),
   },
 
   Mutation: {

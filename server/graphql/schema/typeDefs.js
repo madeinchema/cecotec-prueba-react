@@ -11,6 +11,7 @@ const typeDefs = gql`
   # Queries
   type Query {
     allProducts: [Product!]!
+    product(id: ID!): Product!
   }
 
   # Mutations
