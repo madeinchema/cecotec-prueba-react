@@ -1,25 +1,22 @@
 import { useQuery } from '@apollo/client'
-import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react'
+import {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useState,
+} from 'react'
 import { GET_PRODUCT } from '../../../queries'
 import { EditableProductData, Product } from '../../../types'
+import { formReducer, initialFormState } from '../utils/formReducer'
 
 /**
  * Types
  */
-
-interface InputProductData {
+interface ProductForm {
   name: string
   price: string
-}
-
-interface UseProductData {
-  productForm: EditableProductData
-  handlers: {
-    handleSetProductForm: (inputData: InputProductData) => void
-    handleChangeProductForm: (event: ChangeEvent<HTMLInputElement>) => void
-    handleSubmitProductForm: () => void
-    handleResetProductForm: () => void
-  }
 }
 
 interface UseProductDataProps {
@@ -27,9 +24,14 @@ interface UseProductDataProps {
   onSubmit: () => void
 }
 
-const initialFormState = {
-  name: '',
-  price: '',
+interface UseProductData {
+  productForm: EditableProductData
+  handlers: {
+    handleSetProductForm: (inputData: ProductForm) => void
+    handleChangeProductForm: (event: ChangeEvent<HTMLInputElement>) => void
+    handleSubmitProductForm: () => void
+    handleResetProductForm: () => void
+  }
 }
 
 /**
@@ -39,11 +41,20 @@ function useProductData({
   productId,
   onSubmit,
 }: UseProductDataProps): UseProductData {
-  const [productForm, setProductForm] =
-    useState<EditableProductData>(initialFormState)
+  const [productForm, setProductForm] = useReducer(
+    formReducer,
+    initialFormState
+  )
   const [selectedProduct, setSelectedProduct] =
     useState<Product | undefined>(undefined)
-  const { data } = useQuery(GET_PRODUCT, { variables: { id: productId } })
+  const { data } = useQuery(GET_PRODUCT, {
+    variables: { id: productId },
+    skip: !productId,
+  })
+
+  /**
+   * Pre-fill form if selected product
+   */
   useEffect(() => {
     if (productId && data && !selectedProduct) {
       setSelectedProduct(data.product)
@@ -53,16 +64,36 @@ function useProductData({
   /**
    * Handler callbacks
    */
-  const handleSetProductForm = useCallback(
-    (inputData: InputProductData): void => {
-      setProductForm(inputData)
+  const handleSetProductForm = useCallback((inputData: ProductForm): void => {
+    setProductForm({ type: 'form', payload: inputData })
+  }, [])
+
+  const handleChangeProductForm = useCallback(
+    (event: ChangeEvent<HTMLInputElement>): void => {
+      const { name, value } = event.target
+      if (name === 'name' || name === 'price') {
+        setProductForm({ type: name, payload: value })
+      }
     },
     []
   )
 
   const handleResetProductForm = useCallback((): void => {
-    setProductForm(initialFormState)
+    setProductForm({ type: 'form', payload: initialFormState })
   }, [])
+
+  const handleSubmitProductForm = useCallback((): void => {
+    if (productForm.name.length === 0 || productForm.price.length === 0) {
+      return
+    }
+    onSubmit()
+    handleResetProductForm()
+  }, [
+    handleResetProductForm,
+    onSubmit,
+    productForm.name.length,
+    productForm.price.length,
+  ])
 
   /**
    * Get selectedProduct data & set it in the input
@@ -74,7 +105,9 @@ function useProductData({
         price: selectedProduct.price,
       })
     }
-    return () => handleResetProductForm()
+    return () => {
+      handleResetProductForm()
+    }
   }, [handleResetProductForm, handleSetProductForm, selectedProduct])
 
   /**
@@ -83,28 +116,15 @@ function useProductData({
   const handlers = useMemo(
     () => ({
       handleSetProductForm,
-      handleChangeProductForm(event: ChangeEvent<HTMLInputElement>): void {
-        const { name, value } = event.target
-        setProductForm(prevState => ({
-          ...prevState,
-          [name]: value,
-        }))
-      },
-      handleSubmitProductForm(): void {
-        if (productForm.name.length === 0 || productForm.price.length === 0) {
-          return
-        }
-        onSubmit()
-        handleResetProductForm()
-      },
+      handleChangeProductForm,
+      handleSubmitProductForm,
       handleResetProductForm,
     }),
     [
+      handleChangeProductForm,
       handleResetProductForm,
       handleSetProductForm,
-      onSubmit,
-      productForm.name.length,
-      productForm.price.length,
+      handleSubmitProductForm,
     ]
   )
 
