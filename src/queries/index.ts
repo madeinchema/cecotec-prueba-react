@@ -29,7 +29,7 @@ export const GET_PRODUCT = gql`
  * Mutations
  */
 export const ADD_PRODUCT = gql`
-  mutation AddProduct($id: ID!, $name: String!, $price: String!) {
+  mutation AddProduct($name: String!, $price: String!) {
     addProduct(name: $name, price: $price) {
       id
       name
