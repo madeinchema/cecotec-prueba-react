@@ -1,0 +1,26 @@
+@mixin cards-grid($page) {
+  @media (min-width: 768px) {
+    .#{$page} {
+      padding-top: 1.75rem;
+      &--grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .#{$page} {
+      &--grid {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .#{$page} {
+      &--grid {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
+    }
+  }
+}
