@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client'
 import { ModalConfirm } from '../../../../../components'
 import { GET_ALL_PRODUCTS, EDIT_PRODUCT } from '../../../../../queries'
 import useProductForm from '../../../hooks/useProductForm'
+import ProductForm from '../../ProductForm'
 
 type EditProductModalProps = {
   productId: string
@@ -44,6 +45,14 @@ const EditProductModal = ({
     },
   }
 
+  const productFormConfig = {
+    onChange: handleChangeProductForm,
+    fields: {
+      name: productForm.name,
+      price: productForm.price,
+    },
+  }
+
   return (
     <ModalConfirm
       title="Editar producto"
@@ -51,31 +60,7 @@ const EditProductModal = ({
       confirmBtnConfig={modalConfirmButtonGroupConfig.confirmBtnConfig}
       cancelBtnConfig={modalConfirmButtonGroupConfig.cancelBtnConfig}
     >
-      <form action="">
-        <label htmlFor="firstName">
-          Nombre
-          <input
-            id="name"
-            name="name"
-            type="text"
-            maxLength={36}
-            value={productForm.name}
-            onChange={handleChangeProductForm}
-          />
-        </label>
-
-        <label htmlFor="firstName">
-          Precio
-          <input
-            id="price"
-            name="price"
-            type="text"
-            maxLength={36}
-            value={productForm.price}
-            onChange={handleChangeProductForm}
-          />
-        </label>
-      </form>
+      <ProductForm config={productFormConfig} />
     </ModalConfirm>
   )
 }

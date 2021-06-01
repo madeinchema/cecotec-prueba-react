@@ -2,6 +2,7 @@ import { useMutation, useQuery } from '@apollo/client'
 import { ModalConfirm } from '../../../../components'
 import { ADD_PRODUCT, GET_ALL_PRODUCTS } from '../../../../queries'
 import useProductForm from '../../hooks/useProductForm'
+import ProductForm from '../ProductForm'
 
 type AddProductModalProps = {
   onClose: () => void
@@ -23,6 +24,7 @@ const AddProductModal = ({ onClose }: AddProductModalProps): JSX.Element => {
         price: productForm.price,
       },
     })
+    onClose()
   }
 
   const modalConfirmButtonGroupConfig = {
@@ -38,6 +40,14 @@ const AddProductModal = ({ onClose }: AddProductModalProps): JSX.Element => {
     },
   }
 
+  const productFormConfig = {
+    onChange: handleChangeProductForm,
+    fields: {
+      name: productForm.name,
+      price: productForm.price,
+    },
+  }
+
   return (
     <ModalConfirm
       title="Añadir producto"
@@ -45,31 +55,7 @@ const AddProductModal = ({ onClose }: AddProductModalProps): JSX.Element => {
       confirmBtnConfig={modalConfirmButtonGroupConfig.confirmBtnConfig}
       cancelBtnConfig={modalConfirmButtonGroupConfig.cancelBtnConfig}
     >
-      <form action="">
-        <label htmlFor="name">
-          Nombre
-          <input
-            id="name"
-            name="name"
-            type="text"
-            maxLength={36}
-            value={productForm.name}
-            onChange={handleChangeProductForm}
-          />
-        </label>
-
-        <label htmlFor="price">
-          Apellidos
-          <input
-            id="price"
-            name="price"
-            type="text"
-            maxLength={48}
-            value={productForm.price}
-            onChange={handleChangeProductForm}
-          />
-        </label>
-      </form>
+      <ProductForm config={productFormConfig} />
     </ModalConfirm>
   )
 }
