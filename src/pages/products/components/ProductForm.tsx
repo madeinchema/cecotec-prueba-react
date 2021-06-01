@@ -32,7 +32,6 @@ const ProductForm = ({ config }: ProductFormProps): JSX.Element => {
           min="0.00"
           max="10000.00"
           step="0.01"
-          maxLength={48}
           placeholder="0,00"
           value={config.fields.price}
           onChange={config.onChange}

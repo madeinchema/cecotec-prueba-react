@@ -27,8 +27,10 @@ const formReducer: Reducer<FormReducerState, FormReducerAction> = (
       return action.payload
     case 'name':
       return { ...state, name: action.payload }
-    case 'price':
+    case 'price': {
+      if (action.payload.length >= 9) return state
       return { ...state, price: action.payload }
+    }
     default:
       return state
   }
