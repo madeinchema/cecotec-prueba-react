@@ -160,5 +160,19 @@
       "password": "fDilhu9tZlQmLzr",
       "avatar": "https://cdn.fakercloud.com/avatars/aleclarsoniv_128.jpg"
     }
-  ]
+  ],
+  "login_get": {
+    "token": "E2B57F03E6CEEA5A9FB2B30C06CA230E8267FC3F912439F3FD8FC17FB6C7464C"
+  },
+  "login_post": {
+    "email": "213@gmail.com",
+    "password": "231"
+  },
+  "user": {
+    "id": 1,
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "johndoe@gmail.com",
+    "avatar": "https://cdn.fakercloud.com/avatars/adamnac_128.jpg"
+  }
 }
