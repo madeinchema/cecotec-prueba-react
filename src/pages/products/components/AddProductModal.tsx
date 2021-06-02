@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client'
 import { ModalConfirm } from '../../../components'
 import { ADD_PRODUCT, GET_ALL_PRODUCTS } from '../../../queries'
-import useProductForm from '../hooks/useProductForm'
+import useProductForm from '../useProductForm.hooks'
 import ProductForm from './ProductForm'
 
 type AddProductModalProps = {

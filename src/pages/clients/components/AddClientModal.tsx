@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { ModalConfirm } from '../../../components'
 import { addClient } from '../../../state/slices/clientsSlice'
-import useClientData from '../hooks/useClientData'
+import useClientData from '../useClientData.hooks'
 import ClientForm from './ClientForm'
 
 type AddClientModalProps = {
@@ -11,7 +11,7 @@ type AddClientModalProps = {
 const AddClientModal = ({ onClose }: AddClientModalProps): JSX.Element => {
   const dispatch = useDispatch()
   const {
-    clientInputData,
+    clientFormData: clientInputData,
     handlers: { handleInputData, handleSubmitInputData },
   } = useClientData({ onSubmit: handleAddClient })
 

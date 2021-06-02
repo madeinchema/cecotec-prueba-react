@@ -2,7 +2,7 @@ import { useMutation } from '@apollo/client'
 import { useMemo } from 'react'
 import { ModalConfirm } from '../../../components'
 import { GET_ALL_PRODUCTS, EDIT_PRODUCT } from '../../../queries'
-import useProductForm from '../hooks/useProductForm'
+import useProductForm from '../useProductForm.hooks'
 import ProductForm from './ProductForm'
 
 type EditProductModalProps = {

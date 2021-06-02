@@ -5,7 +5,7 @@ import { useTypedSelector } from '../../../hooks/useTypedSelector'
 import { editClient } from '../../../state/slices/clientsSlice'
 import { ClientData } from '../../../types'
 
-import useClientData from '../hooks/useClientData'
+import useClientData from '../useClientData.hooks'
 import ClientForm from './ClientForm'
 
 type EditClientModalProps = {
@@ -24,7 +24,7 @@ const EditClientModal = ({
     password: '',
   })
   const {
-    clientInputData,
+    clientFormData: clientInputData,
     handlers: { handleInputData, handleSubmitInputData },
   } = useClientData({ onSubmit: handleEditClient, initialInputData })
   const dispatch = useDispatch()

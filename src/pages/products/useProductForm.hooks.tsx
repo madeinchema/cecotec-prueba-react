@@ -8,14 +8,14 @@ import {
   useReducer,
   useState,
 } from 'react'
-import { GET_PRODUCT } from '../../../queries'
-import { Product } from '../../../types'
-import { moveCursorToEnd } from '../utils/functions/productFormFunctions'
+import { GET_PRODUCT } from '../../queries'
+import { Product } from '../../types'
+import { moveCursorToEnd } from './productForm.functions'
 import {
   productFormReducer,
   initialProductFormState,
   ProductFormReducerState,
-} from '../utils/reducers/productFormReducer'
+} from './productForm.reducers'
 
 /**
  * Types

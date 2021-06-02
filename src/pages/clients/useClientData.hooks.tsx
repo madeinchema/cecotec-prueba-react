@@ -1,12 +1,16 @@
-import { ChangeEvent, useEffect, useMemo, useState } from 'react'
-import { EditableClientData } from '../../../types'
+import { ChangeEvent, useEffect, useMemo, useReducer, useState } from 'react'
+import { EditableClientData } from '../../types'
+import {
+  clientFormReducer,
+  initialClientFormState,
+} from './clientForm.reducers'
 
 /**
  * Types
  */
 
 interface UseClientData {
-  clientInputData: EditableClientData
+  clientFormData: EditableClientData
   handlers: {
     handleInputData: (event: ChangeEvent<HTMLInputElement>) => void
     handleSubmitInputData: () => void
@@ -37,6 +41,10 @@ function useClientData({
   const [clientInputData, setClientInputData] = useState<EditableClientData>(
     initialInputDataState
   )
+  // const [clientForm, setClientForm] = useReducer(
+  //   clientFormReducer,
+  //   initialClientFormState
+  // )
 
   useEffect(() => {
     if (initialInputData) {
@@ -79,7 +87,7 @@ function useClientData({
     ]
   )
 
-  return { clientInputData, handlers }
+  return { clientFormData: clientInputData, handlers }
 }
 
 export default useClientData

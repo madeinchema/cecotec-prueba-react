@@ -1,5 +1,5 @@
 import { MouseEvent } from 'react'
-import { ProductFormInputValue } from '../../utils/reducers/productFormReducer'
+import { ProductFormInputValue } from '../../productForm.reducers'
 import './styles.scss'
 
 interface ProductFormProps {
