@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom'
+import { useTypedSelector } from '../../../hooks/useTypedSelector'
 import './styles.scss'
+import { headerNavItems } from './headerNavItems.constants'
 
 const Header = (): JSX.Element => {
+  const currentUserSelector = useTypedSelector(state => state.currentUser)
+
+  const isLoggedIn = currentUserSelector.data ? 'loggedIn' : 'loggedOut'
+
   return (
     <div className="header">
       <div className="header--container">
@@ -9,13 +15,11 @@ const Header = (): JSX.Element => {
           <img src="./logo.png" alt="" />
         </Link>
         <nav className="nav">
-          <li className="nav--item">
-            <Link to="/clients">Clientes</Link>
-          </li>
-          <li className="nav--item">
-            <Link to="/products">Productos</Link>
-          </li>
-          <li className="nav--item">Cerrar sesión</li>
+          {headerNavItems[isLoggedIn].map(navItem => (
+            <li key={navItem.label} className="nav--item">
+              <Link to={navItem.link}>{navItem.label}</Link>
+            </li>
+          ))}
         </nav>
       </div>
     </div>
