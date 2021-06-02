@@ -9,6 +9,7 @@ import ClientCard from './components/ClientCard'
 import './clients.scss'
 
 const Clients = (): JSX.Element => {
+  const currentUserSelector = useTypedSelector(state => state.currentUser)
   const { data, loading, error } = useTypedSelector(state => state.clients)
   const [showAddClientModal, setShowAddClientModal] = useState(false)
   const dispatch = useDispatch()
@@ -24,6 +25,9 @@ const Clients = (): JSX.Element => {
   const handleAddClient = (): void => {
     toggleAddClientModal()
   }
+
+  if (!currentUserSelector.data)
+    return <div className="products">Necesitas haber iniciado sesión.</div>
 
   return (
     <div className="clients">

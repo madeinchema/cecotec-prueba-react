@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client'
 import { useState } from 'react'
 import { Button, Portal } from '../../components'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { GET_ALL_PRODUCTS } from '../../queries'
 import { Product } from '../../types'
 import AddProductModal from './components/AddProductModal'
@@ -8,6 +9,7 @@ import ProductCard from './components/ProductCard'
 import './products.scss'
 
 const Products = (): JSX.Element => {
+  const currentUserSelector = useTypedSelector(state => state.currentUser)
   const [showAddClientModal, setShowAddClientModal] = useState(false)
   const { loading, error, data } = useQuery(GET_ALL_PRODUCTS)
 
@@ -18,6 +20,9 @@ const Products = (): JSX.Element => {
   const handleAddClient = (): void => {
     toggleAddProductModal()
   }
+
+  if (!currentUserSelector.data)
+    return <div className="products">Necesitas haber iniciado sesión.</div>
 
   return (
     <div className="products">
