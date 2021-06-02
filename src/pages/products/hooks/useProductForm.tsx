@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client'
 import {
   ChangeEvent,
+  MouseEvent,
   useCallback,
   useEffect,
   useMemo,
@@ -9,11 +10,12 @@ import {
 } from 'react'
 import { GET_PRODUCT } from '../../../queries'
 import { Product } from '../../../types'
+import { moveCursorToEnd } from '../utils/functions/productFormFunctions'
 import {
   productFormReducer,
   initialProductFormState,
   ProductFormReducerState,
-} from '../utils/productFormReducer'
+} from '../utils/reducers/productFormReducer'
 
 /**
  * Types
@@ -30,6 +32,7 @@ interface UseProductForm {
     handleChangeProductForm: (event: ChangeEvent<HTMLInputElement>) => void
     handleSubmitProductForm: () => void
     handleResetProductForm: () => void
+    handleInputOnClick: (event: MouseEvent<HTMLInputElement>) => void
   }
 }
 
@@ -72,10 +75,20 @@ function useProductForm({
 
   const handleChangeProductForm = useCallback(
     (event: ChangeEvent<HTMLInputElement>): void => {
-      const { name, value } = event.target
-      if (name === 'name' || name === 'price') {
-        setProductForm({ type: name, payload: value })
+      const element = event.currentTarget
+      moveCursorToEnd(element)
+
+      if (element.name === 'name' || element.name === 'price') {
+        setProductForm({ type: element.name, payload: element.value })
       }
+    },
+    []
+  )
+
+  const handleInputOnClick = useCallback(
+    (event: MouseEvent<HTMLInputElement>): void => {
+      const element = event.currentTarget
+      moveCursorToEnd(element)
     },
     []
   )
@@ -128,12 +141,14 @@ function useProductForm({
       handleChangeProductForm,
       handleSubmitProductForm,
       handleResetProductForm,
+      handleInputOnClick,
     }),
     [
       handleChangeProductForm,
       handleResetProductForm,
       handleSetProductForm,
       handleSubmitProductForm,
+      handleInputOnClick,
     ]
   )
 
