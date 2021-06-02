@@ -1,9 +1,5 @@
-import { ChangeEvent, useEffect, useMemo, useReducer, useState } from 'react'
+import { ChangeEvent, useEffect, useMemo, useState } from 'react'
 import { EditableClientData } from '../../types'
-import {
-  clientFormReducer,
-  initialClientFormState,
-} from './clientForm.reducers'
 
 /**
  * Types
@@ -41,10 +37,6 @@ function useClientData({
   const [clientInputData, setClientInputData] = useState<EditableClientData>(
     initialInputDataState
   )
-  // const [clientForm, setClientForm] = useReducer(
-  //   clientFormReducer,
-  //   initialClientFormState
-  // )
 
   useEffect(() => {
     if (initialInputData) {
