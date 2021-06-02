@@ -3,13 +3,15 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 /**
  * Types
  */
-interface CurrentUserData {
-  id: number | undefined
-  firstName: string | undefined
-  lastName: string | undefined
-  email: string | undefined
-  avatar: string | undefined
-}
+type CurrentUserData =
+  | {
+      id: number
+      firstName: string
+      lastName: string
+      email: string
+      avatar: string
+    }
+  | undefined
 
 /**
  * State
@@ -21,13 +23,7 @@ export type ClientsSliceState = {
   error: string | undefined
 }
 
-const currentUserInitialState = {
-  id: undefined,
-  firstName: undefined,
-  lastName: undefined,
-  email: undefined,
-  avatar: undefined,
-}
+const currentUserInitialState = undefined
 
 const initialState: ClientsSliceState = {
   data: currentUserInitialState,
