@@ -12,7 +12,9 @@ function App(): JSX.Element {
       <Router>
         <Switch>
           <Route exact path="/">
-            <Login />
+            <Layout>
+              <Login />
+            </Layout>
           </Route>
           <Route path="/clients">
             <Layout>
