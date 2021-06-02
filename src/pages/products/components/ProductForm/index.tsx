@@ -1,16 +1,19 @@
-import { ProductFormInputValue } from '../utils/productFormReducer'
+import { MouseEvent } from 'react'
+import { ProductFormInputValue } from '../../utils/reducers/productFormReducer'
+import './styles.scss'
 
 interface ProductFormProps {
   config: {
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    onClick: (event: MouseEvent<HTMLInputElement>) => void
     fields: ProductFormInputValue
   }
 }
 
 const ProductForm = ({
-  config: { onChange, fields },
+  config: { onChange, onClick, fields },
 }: ProductFormProps): JSX.Element => (
-  <form action="">
+  <form action="" className="product-form">
     <label htmlFor="name">
       Nombre
       <input
@@ -28,13 +31,13 @@ const ProductForm = ({
       <input
         id="price"
         name="price"
-        type="number"
-        min="0.00"
-        max="10000.00"
-        step="0.01"
+        type="tel"
+        dir="ltr"
         placeholder="0,00"
         value={fields.price.value}
+        onClick={onClick}
         onChange={onChange}
+        className={fields.price.isValid ? 'invalid' : undefined}
       />
     </label>
   </form>
