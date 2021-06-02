@@ -6,6 +6,7 @@ export type ButtonProps = {
   className?: string
   variant?: 'default' | 'primary'
   onClick?: () => void
+  type?: 'button' | 'submit'
 }
 
 const Button = ({
@@ -13,10 +14,12 @@ const Button = ({
   className,
   variant = 'default',
   onClick,
+  type = 'button',
 }: ButtonProps): JSX.Element => {
   return (
     <button
-      type="button"
+      // eslint-disable-next-line react/button-has-type
+      type={type}
       className={`button ${className || null} button__${variant}`}
       onClick={onClick}
     >
