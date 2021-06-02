@@ -5,7 +5,9 @@ const Header = (): JSX.Element => {
   return (
     <div className="header">
       <div className="header--container">
-        <img className="logo--img" src="./logo.png" alt="" />
+        <Link className="logo--img" to="/">
+          <img src="./logo.png" alt="" />
+        </Link>
         <nav className="nav">
           <li className="nav--item">
             <Link to="/clients">Clientes</Link>
