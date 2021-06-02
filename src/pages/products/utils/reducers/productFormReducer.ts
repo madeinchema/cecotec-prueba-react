@@ -1,10 +1,12 @@
 import { Reducer } from 'react'
 
+/**
+ * Types
+ */
 interface ProductFormInput {
   value: string
   isValid?: boolean | undefined
   error?: string | undefined
-  fieldValidationInfo?: string
 }
 
 export interface ProductFormReducerState {
@@ -17,6 +19,7 @@ type ProductFormInputName = 'name' | 'price'
 export type ProductFormInputValue = {
   [key in ProductFormInputName]: {
     value: string
+    isValid?: boolean
   }
 }
 
@@ -27,21 +30,25 @@ type ProductFormReducerAction =
     }
   | { type: 'form'; payload: ProductFormReducerState }
 
+/**
+ * Initial state
+ */
 const initialProductFormState = {
   name: {
     value: '',
     isValid: undefined,
     error: undefined,
-    fieldValidationInfo: '',
   },
   price: {
     value: '',
     isValid: undefined,
     error: undefined,
-    fieldValidationInfo: '',
   },
 }
 
+/**
+ * productFormReducer
+ */
 const productFormReducer: Reducer<
   ProductFormReducerState,
   ProductFormReducerAction
@@ -58,12 +65,19 @@ const productFormReducer: Reducer<
         },
       }
     case 'price': {
-      if (action.payload.length >= 9) return state
+      let newPrice = action.payload
+      // RegExp: Empty || Number with only 1 comma & up to 2 decimals
+      const numberRegex = new RegExp(/^$|^\d+(,\d{0,2})?$/g)
+      const isValidInput = numberRegex.test(newPrice)
+      if (!isValidInput || newPrice.length >= 9) newPrice = state.price.value
+      if (newPrice.length === 0) newPrice = ''
+
       return {
         ...state,
         price: {
           ...state.price,
-          value: action.payload,
+          isValid: isValidInput,
+          value: newPrice,
         },
       }
     }
