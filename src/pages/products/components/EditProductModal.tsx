@@ -19,7 +19,11 @@ const EditProductModal = ({
   })
   const {
     productForm,
-    handlers: { handleChangeProductForm, handleSubmitProductForm },
+    handlers: {
+      handleChangeProductForm,
+      handleSubmitProductForm,
+      handleInputOnClick,
+    },
   } = useProductForm({ productId, onSubmit: handleAddProduct })
 
   function handleAddProduct(): void {
@@ -49,16 +53,26 @@ const EditProductModal = ({
   const editProductFormConfig = useMemo(
     () => ({
       onChange: handleChangeProductForm,
+      onClick: handleInputOnClick,
       fields: {
         name: {
           value: productForm.name.value,
+          isValid: productForm.name.isValid,
         },
         price: {
           value: productForm.price.value,
+          isValid: productForm.price.isValid,
         },
       },
     }),
-    [handleChangeProductForm, productForm.name.value, productForm.price.value]
+    [
+      handleChangeProductForm,
+      handleInputOnClick,
+      productForm.name.isValid,
+      productForm.name.value,
+      productForm.price.isValid,
+      productForm.price.value,
+    ]
   )
 
   return (

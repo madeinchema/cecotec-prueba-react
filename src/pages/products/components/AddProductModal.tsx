@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { ModalConfirm } from '../../../components'
 import { ADD_PRODUCT, GET_ALL_PRODUCTS } from '../../../queries'
 import useProductForm from '../hooks/useProductForm'
@@ -11,7 +11,11 @@ type AddProductModalProps = {
 const AddProductModal = ({ onClose }: AddProductModalProps): JSX.Element => {
   const {
     productForm,
-    handlers: { handleChangeProductForm, handleSubmitProductForm },
+    handlers: {
+      handleChangeProductForm,
+      handleSubmitProductForm,
+      handleInputOnClick,
+    },
   } = useProductForm({ onSubmit: handleAddProduct })
   const [addProduct] = useMutation(ADD_PRODUCT, {
     refetchQueries: [{ query: GET_ALL_PRODUCTS }],
@@ -42,12 +46,15 @@ const AddProductModal = ({ onClose }: AddProductModalProps): JSX.Element => {
 
   const addProductFormConfig = {
     onChange: handleChangeProductForm,
+    onClick: handleInputOnClick,
     fields: {
       name: {
         value: productForm.name.value,
+        isValid: productForm.name.isValid,
       },
       price: {
         value: productForm.price.value,
+        isValid: productForm.price.isValid,
       },
     },
   }
