@@ -9,7 +9,10 @@ import {
 } from 'react'
 import { GET_PRODUCT } from '../../../queries'
 import { EditableProductData, Product } from '../../../types'
-import { formReducer, initialFormState } from '../utils/formReducer'
+import {
+  productFormReducer,
+  initialProductFormState,
+} from '../utils/productFormReducer'
 
 /**
  * Types
@@ -42,8 +45,8 @@ function useProductData({
   onSubmit,
 }: UseProductDataProps): UseProductData {
   const [productForm, setProductForm] = useReducer(
-    formReducer,
-    initialFormState
+    productFormReducer,
+    initialProductFormState
   )
   const [selectedProduct, setSelectedProduct] =
     useState<Product | undefined>(undefined)
@@ -79,7 +82,7 @@ function useProductData({
   )
 
   const handleResetProductForm = useCallback((): void => {
-    setProductForm({ type: 'form', payload: initialFormState })
+    setProductForm({ type: 'form', payload: initialProductFormState })
   }, [])
 
   const handleSubmitProductForm = useCallback((): void => {

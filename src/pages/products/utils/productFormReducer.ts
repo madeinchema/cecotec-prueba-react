@@ -5,23 +5,23 @@ interface InputProductData {
   price: string
 }
 
-type FormReducerState = InputProductData
-type FormReducerAction =
+type ProductFormReducerState = InputProductData
+type ProductFormReducerAction =
   | {
       type: 'name' | 'price'
       payload: string
     }
   | { type: 'form'; payload: InputProductData }
 
-const initialFormState = {
+const initialProductFormState = {
   name: '',
   price: '',
 }
 
-const formReducer: Reducer<FormReducerState, FormReducerAction> = (
-  state,
-  action
-): InputProductData => {
+const productFormReducer: Reducer<
+  ProductFormReducerState,
+  ProductFormReducerAction
+> = (state, action): InputProductData => {
   switch (action.type) {
     case 'form':
       return action.payload
@@ -36,4 +36,4 @@ const formReducer: Reducer<FormReducerState, FormReducerAction> = (
   }
 }
 
-export { formReducer, initialFormState }
+export { productFormReducer, initialProductFormState }
