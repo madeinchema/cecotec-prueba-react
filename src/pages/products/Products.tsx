@@ -1,9 +1,10 @@
 import { useQuery } from '@apollo/client'
 import { useState } from 'react'
-import { Button, Portal } from '../../components'
+import { AuthGuard, Button, Portal } from '../../components'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { GET_ALL_PRODUCTS } from '../../queries'
 import { Product } from '../../types'
+
 import AddProductModal from './components/AddProductModal'
 import ProductCard from './components/ProductCard'
 import './products.scss'
@@ -21,8 +22,7 @@ const Products = (): JSX.Element => {
     toggleAddProductModal()
   }
 
-  if (!currentUserSelector.data)
-    return <div className="products">Necesitas haber iniciado sesión.</div>
+  if (!currentUserSelector.data) return <AuthGuard />
 
   return (
     <div className="products">

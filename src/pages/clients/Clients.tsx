@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Button, Portal } from '../../components'
+import { Button, Portal, AuthGuard } from '../../components'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { getClients } from '../../state/slices/clientsSlice'
 import { ClientPublicData } from '../../types'
-import AddClientModal from './components/AddClientModal'
+
 import ClientCard from './components/ClientCard'
+import AddClientModal from './components/AddClientModal'
 import './clients.scss'
 
 const Clients = (): JSX.Element => {
@@ -26,8 +27,7 @@ const Clients = (): JSX.Element => {
     toggleAddClientModal()
   }
 
-  if (!currentUserSelector.data)
-    return <div className="products">Necesitas haber iniciado sesión.</div>
+  if (!currentUserSelector.data) return <AuthGuard />
 
   return (
     <div className="clients">
