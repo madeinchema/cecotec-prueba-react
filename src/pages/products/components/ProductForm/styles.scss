@@ -1,9 +1,6 @@
 .product-form {
 
-  input {
+  input[name="price"] {
     text-align: right;
-  }
-  input.invalid {
-    border-color: red;
   }
 }
