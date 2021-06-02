@@ -1,10 +1,9 @@
+import { ProductFormInputValue } from '../utils/productFormReducer'
+
 interface ProductFormProps {
   config: {
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-    fields: {
-      name: string
-      price: string
-    }
+    fields: ProductFormInputValue
   }
 }
 
@@ -19,7 +18,7 @@ const ProductForm = ({
         name="name"
         type="text"
         maxLength={36}
-        value={fields.name}
+        value={fields.name.value}
         onChange={onChange}
       />
     </label>
@@ -34,7 +33,7 @@ const ProductForm = ({
         max="10000.00"
         step="0.01"
         placeholder="0,00"
-        value={fields.price}
+        value={fields.price.value}
         onChange={onChange}
       />
     </label>

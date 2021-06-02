@@ -20,8 +20,8 @@ const AddProductModal = ({ onClose }: AddProductModalProps): JSX.Element => {
   function handleAddProduct(): void {
     addProduct({
       variables: {
-        name: productForm.name,
-        price: productForm.price,
+        name: productForm.name.value,
+        price: productForm.price.value,
       },
     })
     onClose()
@@ -43,8 +43,12 @@ const AddProductModal = ({ onClose }: AddProductModalProps): JSX.Element => {
   const addProductFormConfig = {
     onChange: handleChangeProductForm,
     fields: {
-      name: productForm.name,
-      price: productForm.price,
+      name: {
+        value: productForm.name.value,
+      },
+      price: {
+        value: productForm.price.value,
+      },
     },
   }
 

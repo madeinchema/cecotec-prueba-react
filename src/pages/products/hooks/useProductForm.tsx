@@ -8,29 +8,25 @@ import {
   useState,
 } from 'react'
 import { GET_PRODUCT } from '../../../queries'
-import { EditableProductData, Product } from '../../../types'
+import { Product } from '../../../types'
 import {
   productFormReducer,
   initialProductFormState,
+  ProductFormReducerState,
 } from '../utils/productFormReducer'
 
 /**
  * Types
  */
-interface ProductForm {
-  name: string
-  price: string
-}
-
-interface UseProductDataProps {
+interface UseProductFormProps {
   productId?: string
   onSubmit: () => void
 }
 
-interface UseProductData {
-  productForm: EditableProductData
+interface UseProductForm {
+  productForm: ProductFormReducerState
   handlers: {
-    handleSetProductForm: (inputData: ProductForm) => void
+    handleSetProductForm: (inputData: ProductFormReducerState) => void
     handleChangeProductForm: (event: ChangeEvent<HTMLInputElement>) => void
     handleSubmitProductForm: () => void
     handleResetProductForm: () => void
@@ -38,19 +34,19 @@ interface UseProductData {
 }
 
 /**
- * useProductData hook
+ * useProductForm hook
  */
-function useProductData({
+function useProductForm({
   productId,
   onSubmit,
-}: UseProductDataProps): UseProductData {
+}: UseProductFormProps): UseProductForm {
   const [productForm, setProductForm] = useReducer(
     productFormReducer,
     initialProductFormState
   )
   const [selectedProduct, setSelectedProduct] =
     useState<Product | undefined>(undefined)
-  const { data } = useQuery(GET_PRODUCT, {
+  const { data: productQueryData } = useQuery(GET_PRODUCT, {
     variables: { id: productId },
     skip: !productId,
   })
@@ -59,17 +55,20 @@ function useProductData({
    * Pre-fill form if selected product
    */
   useEffect(() => {
-    if (productId && data && !selectedProduct) {
-      setSelectedProduct(data.product)
+    if (productId && productQueryData && !selectedProduct) {
+      setSelectedProduct(productQueryData.product)
     }
-  }, [data, productId, selectedProduct])
+  }, [productQueryData, productId, selectedProduct])
 
   /**
    * Handler callbacks
    */
-  const handleSetProductForm = useCallback((inputData: ProductForm): void => {
-    setProductForm({ type: 'form', payload: inputData })
-  }, [])
+  const handleSetProductForm = useCallback(
+    (inputData: ProductFormReducerState): void => {
+      setProductForm({ type: 'form', payload: inputData })
+    },
+    []
+  )
 
   const handleChangeProductForm = useCallback(
     (event: ChangeEvent<HTMLInputElement>): void => {
@@ -86,7 +85,10 @@ function useProductData({
   }, [])
 
   const handleSubmitProductForm = useCallback((): void => {
-    if (productForm.name.length === 0 || productForm.price.length === 0) {
+    if (
+      productForm.name.value.length === 0 ||
+      productForm.price.value.length === 0
+    ) {
       return
     }
     onSubmit()
@@ -94,8 +96,8 @@ function useProductData({
   }, [
     handleResetProductForm,
     onSubmit,
-    productForm.name.length,
-    productForm.price.length,
+    productForm.name.value.length,
+    productForm.price.value.length,
   ])
 
   /**
@@ -104,8 +106,12 @@ function useProductData({
   useEffect(() => {
     if (selectedProduct) {
       handleSetProductForm({
-        name: selectedProduct.name,
-        price: selectedProduct.price,
+        name: {
+          value: selectedProduct.name,
+        },
+        price: {
+          value: selectedProduct.price,
+        },
       })
     }
     return () => {
@@ -134,4 +140,4 @@ function useProductData({
   return { productForm, handlers }
 }
 
-export default useProductData
+export default useProductForm

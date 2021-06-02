@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client'
+import { useMemo } from 'react'
 import { ModalConfirm } from '../../../components'
 import { GET_ALL_PRODUCTS, EDIT_PRODUCT } from '../../../queries'
 import useProductForm from '../hooks/useProductForm'
@@ -25,8 +26,8 @@ const EditProductModal = ({
     editProduct({
       variables: {
         id: productId,
-        name: productForm.name,
-        price: productForm.price,
+        name: productForm.name.value,
+        price: productForm.price.value,
       },
     })
     onClose()
@@ -45,13 +46,20 @@ const EditProductModal = ({
     },
   }
 
-  const editProductFormConfig = {
-    onChange: handleChangeProductForm,
-    fields: {
-      name: productForm.name,
-      price: productForm.price,
-    },
-  }
+  const editProductFormConfig = useMemo(
+    () => ({
+      onChange: handleChangeProductForm,
+      fields: {
+        name: {
+          value: productForm.name.value,
+        },
+        price: {
+          value: productForm.price.value,
+        },
+      },
+    }),
+    [handleChangeProductForm, productForm.name.value, productForm.price.value]
+  )
 
   return (
     <ModalConfirm

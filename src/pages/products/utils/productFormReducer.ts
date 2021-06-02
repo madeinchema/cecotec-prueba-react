@@ -1,35 +1,71 @@
 import { Reducer } from 'react'
 
-interface InputProductData {
-  name: string
-  price: string
+interface ProductFormInput {
+  value: string
+  isValid?: boolean | undefined
+  error?: string | undefined
+  fieldValidationInfo?: string
 }
 
-type ProductFormReducerState = InputProductData
+export interface ProductFormReducerState {
+  name: ProductFormInput
+  price: ProductFormInput
+}
+
+type ProductFormInputName = 'name' | 'price'
+
+export type ProductFormInputValue = {
+  [key in ProductFormInputName]: {
+    value: string
+  }
+}
+
 type ProductFormReducerAction =
   | {
-      type: 'name' | 'price'
+      type: ProductFormInputName
       payload: string
     }
-  | { type: 'form'; payload: InputProductData }
+  | { type: 'form'; payload: ProductFormReducerState }
 
 const initialProductFormState = {
-  name: '',
-  price: '',
+  name: {
+    value: '',
+    isValid: undefined,
+    error: undefined,
+    fieldValidationInfo: '',
+  },
+  price: {
+    value: '',
+    isValid: undefined,
+    error: undefined,
+    fieldValidationInfo: '',
+  },
 }
 
 const productFormReducer: Reducer<
   ProductFormReducerState,
   ProductFormReducerAction
-> = (state, action): InputProductData => {
+> = (state, action): ProductFormReducerState => {
   switch (action.type) {
     case 'form':
       return action.payload
     case 'name':
-      return { ...state, name: action.payload }
+      return {
+        ...state,
+        name: {
+          ...state.name,
+          value: action.payload,
+        },
+      }
     case 'price': {
       if (action.payload.length >= 9) return state
-      return { ...state, price: action.payload }
+      return {
+        ...state,
+        price: {
+          ...state.price,
+          value: action.payload,
+        },
+      }
     }
     default:
       return state
