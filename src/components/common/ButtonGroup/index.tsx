@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import Button, { ButtonProps } from '../Button'
 import './styles.scss'
 
-type ButtonGroupDataSource = ButtonProps & {
+export type ButtonGroupDataSource = ButtonProps & {
   id: string
   onClick: () => void
 }
