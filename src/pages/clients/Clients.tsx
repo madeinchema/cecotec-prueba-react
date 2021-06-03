@@ -13,6 +13,7 @@ const Clients = (): JSX.Element => {
   const currentUserSelector = useTypedSelector(state => state.currentUser)
   const { data, loading, error } = useTypedSelector(state => state.clients)
   const [showAddClientModal, setShowAddClientModal] = useState(false)
+  const isLoggedIn = currentUserSelector.data
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const Clients = (): JSX.Element => {
     toggleAddClientModal()
   }
 
-  if (!currentUserSelector.data) return <AuthGuard />
+  if (!isLoggedIn) return <AuthGuard />
 
   return (
     <div className="clients">

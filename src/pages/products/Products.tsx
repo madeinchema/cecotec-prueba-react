@@ -13,6 +13,7 @@ const Products = (): JSX.Element => {
   const currentUserSelector = useTypedSelector(state => state.currentUser)
   const [showAddClientModal, setShowAddClientModal] = useState(false)
   const { loading, error, data } = useQuery(GET_ALL_PRODUCTS)
+  const isLoggedIn = currentUserSelector.data
 
   const toggleAddProductModal = (): void => {
     setShowAddClientModal(prevState => !prevState)
@@ -22,7 +23,7 @@ const Products = (): JSX.Element => {
     toggleAddProductModal()
   }
 
-  if (!currentUserSelector.data) return <AuthGuard />
+  if (!isLoggedIn) return <AuthGuard />
 
   return (
     <div className="products">
