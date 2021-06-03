@@ -5,6 +5,15 @@
 #### Inicializa React app, json-server y GraphQL:
 `npm run start & npm run server & npm run graphql`
 
+#### Versión online:
+* Si quieres probar parte del proyecto, el mismo está subido en Vercel, donde no hay servidor, pero se puede probar la parte de Producto y ciertas lógicas de la autenticación haciendo unos ajustes:
+	* Ve a localStorage y añade las siguientes entradas:
+		* **Key:** session
+			* **Value:**`{"token":"E2B57F03E6CEEA5A9FB2B30C06CA230E8267FC3F912439F3FD8FC17FB6C7464C"}`
+		* **Key:** user
+			* **Value:**`{"id":1,"firstName":"John","lastName":"Doe","email":"johndoe@gmail.com","avatar":"https://cdn.fakercloud.com/avatars/adamnac_128.jpg"}`
+		* Al refrescar la página, puedes ir a _/products_ y utilizar el CRUD de productos con GraphQL.
+
 ## Tech Stack
 * React
 * TypeScript
