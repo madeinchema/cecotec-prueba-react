@@ -9,9 +9,9 @@ type ButtonGroupConfig = {
 }
 
 interface ModalConfirmProps {
-  title: string
+  title?: string
   children: ReactNode
-  onClose: () => void
+  onClose?: () => void
   confirmBtnConfig: ButtonGroupConfig
   cancelBtnConfig: ButtonGroupConfig
 }
@@ -41,16 +41,18 @@ const ModalConfirm = ({
       <div className="modal--content--container">
         <div className="modal--content">
           <div className="modal--header">
-            <h2>{title}</h2>
-            <span
-              tabIndex={0}
-              onKeyPress={onClose}
-              role="button"
-              className="close"
-              onClick={onClose}
-            >
-              &times;
-            </span>
+            {title && <h2>{title}</h2>}
+            {onClose && (
+              <span
+                tabIndex={0}
+                onKeyPress={onClose}
+                role="button"
+                className="close"
+                onClick={onClose}
+              >
+                &times;
+              </span>
+            )}
           </div>
           {children}
         </div>
