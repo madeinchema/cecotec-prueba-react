@@ -23,7 +23,7 @@ const Products = (): JSX.Element => {
     toggleAddProductModal()
   }
 
-  if (!isLoggedIn) return <AuthGuard isLoggedIn={isLoggedIn} />
+  if (!isLoggedIn) return <AuthGuard isLoggedIn={isLoggedIn} redirectPath="/" />
 
   return (
     <div className="products">
