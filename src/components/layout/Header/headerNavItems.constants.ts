@@ -8,10 +8,6 @@ const headerNavItems = {
       label: 'Productos',
       link: '/products',
     },
-    {
-      label: 'Cerrar sesión',
-      link: '/',
-    },
   ],
   loggedOut: [
     {

@@ -1,12 +1,19 @@
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { useTypedSelector } from '../../../hooks/useTypedSelector'
-import './styles.scss'
 import { headerNavItems } from './headerNavItems.constants'
+import './styles.scss'
+import { logOutCurrentUser } from '../../../state/slices/currentUserSlice'
 
 const Header = (): JSX.Element => {
   const currentUserSelector = useTypedSelector(state => state.currentUser)
   const isLoggedIn = !!currentUserSelector.data
   const isLoggedInKey = currentUserSelector.data ? 'loggedIn' : 'loggedOut'
+  const dispatch = useDispatch()
+
+  const handleUserLogOut = (): void => {
+    dispatch(logOutCurrentUser())
+  }
 
   return (
     <div className="header">
@@ -22,12 +29,19 @@ const Header = (): JSX.Element => {
             </li>
           ))}
           {isLoggedIn && (
-            <div className="header__nav-item--avatar">
-              <img
-                src={currentUserSelector.data.avatar}
-                alt="username avatar"
-              />
-            </div>
+            <>
+              <li className="header__nav-item">
+                <Link to="/" onClick={handleUserLogOut}>
+                  Cerrar sesión
+                </Link>
+              </li>
+              <div className="header__nav-item--avatar">
+                <img
+                  src={currentUserSelector.data.avatar}
+                  alt="username avatar"
+                />
+              </div>
+            </>
           )}
         </nav>
       </div>
