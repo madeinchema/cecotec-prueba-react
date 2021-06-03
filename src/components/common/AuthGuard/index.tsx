@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useHistory } from 'react-router'
+import authGuardConstants from './authGuard.constants'
 import './styles.scss'
 
 interface AuthGuardProps {
@@ -17,10 +18,8 @@ const AuthGuard = ({
   const isLoggedInText = isLoggedIn ? 'loggedIn' : 'loggedOut'
 
   const authGuardTexts = {
-    loggedIn:
-      'Ya ha iniciado sesión. Le estamos redirigiendo, por favor espere.',
-    loggedOut:
-      'Necesita haber iniciado sesión. Le estamos redirigiendo, por favor espere.',
+    loggedIn: authGuardConstants.loggedIn,
+    loggedOut: authGuardConstants.loggedOut,
   }
 
   useEffect(() => {
