@@ -28,7 +28,7 @@ const Clients = (): JSX.Element => {
     toggleAddClientModal()
   }
 
-  if (!isLoggedIn) return <AuthGuard />
+  if (!isLoggedIn) return <AuthGuard isLoggedIn={isLoggedIn} />
 
   return (
     <div className="clients">

@@ -23,7 +23,7 @@ const Products = (): JSX.Element => {
     toggleAddProductModal()
   }
 
-  if (!isLoggedIn) return <AuthGuard />
+  if (!isLoggedIn) return <AuthGuard isLoggedIn={isLoggedIn} />
 
   return (
     <div className="products">

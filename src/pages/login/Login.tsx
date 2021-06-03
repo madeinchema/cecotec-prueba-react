@@ -1,7 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router'
-import { Button } from '../../components'
+import { Redirect, useHistory } from 'react-router'
+import { AuthGuard, Button } from '../../components'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { loadCurrentUser } from '../../state/slices/currentUserSlice'
 import './login.scss'
 
@@ -11,8 +12,15 @@ const Login = (): JSX.Element => {
     email: '',
     password: '',
   })
+  const currentUserSelector = useTypedSelector(state => state.currentUser)
+  const isLoggedIn = currentUserSelector.data
   const history = useHistory()
   const dispatch = useDispatch()
+
+  if (isLoggedIn) {
+    setTimeout(() => history.push('/clients'), 2000)
+    return <AuthGuard isLoggedIn={isLoggedIn} />
+  }
 
   const handleFormOnChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target
