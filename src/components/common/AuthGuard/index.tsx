@@ -5,7 +5,7 @@ import './styles.scss'
 interface AuthGuardProps {
   isLoggedIn: boolean
   className?: string
-  redirectPath: string
+  redirectPath?: string
 }
 
 const AuthGuard = ({
@@ -24,10 +24,13 @@ const AuthGuard = ({
   }
 
   useEffect(() => {
-    const redirectTimer = setTimeout(() => history.push(redirectPath), 2000)
-    return () => {
-      clearTimeout(redirectTimer)
+    if (redirectPath) {
+      const redirectTimer = setTimeout(() => history.push(redirectPath), 2000)
+      return () => {
+        clearTimeout(redirectTimer)
+      }
     }
+    return undefined
   }, [history, redirectPath])
 
   return (
