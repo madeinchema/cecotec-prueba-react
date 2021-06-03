@@ -1,71 +1,31 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Redirect, useHistory } from 'react-router'
 import { AuthGuard, Button } from '../../components'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
-import { loadCurrentUser } from '../../state/slices/currentUserSlice'
+import { logInCurrentUser } from '../../state/slices/currentUserSlice'
 import './login.scss'
 
 const Login = (): JSX.Element => {
-  const SESSION_KEY = 'session'
   const [formData, setFormData] = useState<{ [key: string]: string }>({
     email: '',
     password: '',
   })
   const currentUserSelector = useTypedSelector(state => state.currentUser)
   const isLoggedIn = currentUserSelector.data
-  const history = useHistory()
   const dispatch = useDispatch()
-
-  if (isLoggedIn) {
-    setTimeout(() => history.push('/clients'), 2000)
-    return <AuthGuard isLoggedIn={isLoggedIn} />
-  }
 
   const handleFormOnChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target
     setFormData(prevState => ({ ...prevState, [name]: value }))
   }
 
-  function loadUserData(): void {
-    const sessionData = localStorage.getItem(SESSION_KEY) || ''
-    fetch(`${process.env.REACT_APP_SERVER_URL}/user`, {
-      headers: {
-        token: sessionData,
-      },
-    })
-      .then(res => res.json())
-      .then(data => {
-        localStorage.setItem('user', JSON.stringify(data))
-        dispatch(loadCurrentUser())
-        history.push('/clients')
-      })
-  }
-
-  const handleLoginResponse = (): void => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/login_get`)
-      .then(res => res.json())
-      .then(data => {
-        localStorage.setItem(SESSION_KEY, JSON.stringify(data))
-        loadUserData()
-      })
-  }
-
   const handleLoginSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
-    fetch(`${process.env.REACT_APP_SERVER_URL}/login_post`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    })
-      .then(res => res.json())
-      .then(() => {
-        handleLoginResponse()
-      })
+    dispatch(logInCurrentUser(formData))
   }
+
+  if (isLoggedIn)
+    return <AuthGuard isLoggedIn={isLoggedIn} redirectPath="/clients" />
 
   return (
     <div className="login">
