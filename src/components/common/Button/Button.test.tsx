@@ -23,4 +23,9 @@ describe('<Button /> common component', () => {
     const { container } = render(<Button className="product">Button</Button>)
     expect(container.firstChild.classList.contains('product')).toBe(true)
   })
+
+  it('has default type of "button"', () => {
+    const { container } = render(<Button>Button</Button>)
+    expect(container.firstChild.type).toBe('button')
+  })
 })
