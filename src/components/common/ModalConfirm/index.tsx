@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import ButtonGroup from '../ButtonGroup'
 import './styles.scss'
 
-type ButtonGroupConfig = {
+export type ButtonGroupConfig = {
   id: string
   content: ReactNode
   onClick: () => void
