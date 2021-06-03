@@ -5,7 +5,7 @@ import './styles.scss'
 interface CardProps {
   children: ReactNode
   className?: string
-  buttonGroupDataSource: {
+  buttonGroupDataSource?: {
     id: string
     children: string
     onClick: () => void
@@ -22,7 +22,9 @@ const Card = ({
   return (
     <div className={`${propsClassName} card`}>
       <div className={`${propsClassName} card--container`}>{children}</div>
-      <ButtonGroup dataSource={buttonGroupDataSource} />
+      {buttonGroupDataSource && (
+        <ButtonGroup dataSource={buttonGroupDataSource} />
+      )}
     </div>
   )
 }
