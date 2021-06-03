@@ -28,6 +28,11 @@ describe('<ButtonGroup /> common component', () => {
     ]
   })
 
+  it('renders children"', () => {
+    const { getByText } = render(<Card>Card</Card>)
+    expect(getByText(/card/i)).toBeInTheDocument()
+  })
+
   it('renders card with 2 buttons', () => {
     const { getByText } = render(
       <Card buttonGroupDataSource={buttonGroupDataSource}>Card</Card>
