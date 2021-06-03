@@ -44,7 +44,7 @@ const addClient = createAsyncThunk(
     } as ClientData
 
     return addClientToApi(newClient)
-      .then(res => {
+      .then(() => {
         return getClientsFromApi()
       })
       .catch(err => {
@@ -68,7 +68,7 @@ const editClient = createAsyncThunk(
     } as ClientData
 
     return editClientFromApi(updatedClientData)
-      .then(res => {
+      .then(() => {
         return getClientsFromApi()
       })
       .catch(err => {
@@ -81,7 +81,7 @@ const removeClient = createAsyncThunk(
   'clients/removeClient',
   async (clientId: string) => {
     return removeClientFromApi(clientId)
-      .then(res => {
+      .then(() => {
         return getClientsFromApi()
       })
       .catch(err => {

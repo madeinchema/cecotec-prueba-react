@@ -134,7 +134,7 @@ export const currentUserSlice = createSlice({
       state.success = undefined
       state.error = undefined
     })
-    builder.addCase(logOutCurrentUser.fulfilled, (state, action) => {
+    builder.addCase(logOutCurrentUser.fulfilled, state => {
       state.data = currentUserInitialState
       state.loading = false
       state.success = true
