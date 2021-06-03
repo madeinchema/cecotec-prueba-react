@@ -28,4 +28,9 @@ describe('<Button /> common component', () => {
     const { container } = render(<Button>Button</Button>)
     expect(container.firstChild.type).toBe('button')
   })
+
+  it('renders with "submit" type from props', () => {
+    const { container } = render(<Button type="submit">Button</Button>)
+    expect(container.firstChild.type).toBe('submit')
+  })
 })
