@@ -1,8 +1,7 @@
 import { render } from '@testing-library/react'
-import { ButtonGroupDataSource } from '../ButtonGroup/index'
 import Card from '.'
 
-describe('<ButtonGroup /> common component', () => {
+describe('<Card /> common component', () => {
   let buttonGroupDataSource: {
     id: string
     children: string
