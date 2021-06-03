@@ -10,15 +10,15 @@ describe('<ModalConfirm /> common component', () => {
   beforeEach(() => {
     modalConfirmButtonGroupConfig = {
       confirmBtnConfig: {
-        id: 'add-product-modal-cancel',
-        content: 'Cancelar',
+        id: '1',
+        content: 'Button 1',
         onClick: () => {
           /**/
         },
       },
       cancelBtnConfig: {
-        id: 'add-product-modal-add',
-        content: 'Añadir producto',
+        id: '2',
+        content: 'Button 2',
         onClick: () => {
           /**/
         },
@@ -36,5 +36,18 @@ describe('<ModalConfirm /> common component', () => {
       </ModalConfirm>
     )
     expect(getByText(/modalconfirm/i)).toBeInTheDocument()
+  })
+
+  it('renders ModalConfirm with 2 buttons', () => {
+    const { getByText } = render(
+      <ModalConfirm
+        confirmBtnConfig={modalConfirmButtonGroupConfig.confirmBtnConfig}
+        cancelBtnConfig={modalConfirmButtonGroupConfig.cancelBtnConfig}
+      >
+        ModalConfirm
+      </ModalConfirm>
+    )
+    expect(getByText(/button 1/i).closest('button')).toBeInTheDocument()
+    expect(getByText(/button 2/i).closest('button')).toBeInTheDocument()
   })
 })
